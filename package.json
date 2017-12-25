@@ -2,7 +2,7 @@
   "name": "drift",
   "version": "1.0.0",
   "description": "Drift - A Helpful Discord Bot from the Drift Development Team",
-  "main": "index.js",
+  "main": "bot.js",
   "dependencies": {
     "bufferutil": "^3.0.3",
     "discord.js": "^11.2.1",
