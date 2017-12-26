@@ -28,24 +28,27 @@ module.exports.run = async (bot, message, args) => {
             console.log(e.stack);
         }
     }
+    if(toMute.roles.has(role.id)) return message.channel.send("This user has already been muted!");
 
-    let embed = new Discord.RichEmbed()
-        .setTitle("Drift Mute")
-        .setThumbnail("https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")
-        .addField("Mute Status - ", "That user has already been muted!") 
-        .addField("Created At -", message.author.createdAt)
-        .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")  
-    message.channel.send({embed: embed});
+    await toMute.addRoles(role);
+    message.channel.send("This user is now muted.");
+//   let embed = new Discord.RichEmbed()
+//       .setTitle("Drift Mute")
+//       .setThumbnail("https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")
+//       .addField("Mute Status - ", "That user has already been muted!") 
+//       .addField("Created At -", message.author.createdAt)
+//       .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")  
+//   if(toMute.roles.has(role.id)) return message.channel.send({embed: embed});
 
-    await toMute.addRole(role);
-    let embed2 = new Discord.RichEmbed()
-        .setTitle("Drift Mute")
-        .setThumbnail("https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")
-        .addField("Mute Status - ", "That user is now muted.")
-        .addField("Created At -", message.author.createdAt)
-        .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")
-    
-    message.channel.send({embed2: embed2});
+//    await toMute.addRole(role);
+//    let embed2 = new Discord.RichEmbed()
+//        .setTitle("Drift Mute")
+//        .setThumbnail("https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")
+//        .addField("Mute Status - ", "That user is now muted.")
+//        .addField("Created At -", message.author.createdAt)
+//        .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")
+//    
+///    if(toMute.roles.has(!role.id)) return message.channel.send({embed2: embed2});
 
     console.log("Mute Command has been executed.");
 }
