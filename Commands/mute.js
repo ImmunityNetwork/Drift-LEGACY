@@ -47,7 +47,7 @@ module.exports.run = async (bot, message, args) => {
     
     message.channel.send({embed2: embed2});
 
-    console.log("Ping Command has been executed.");
+    console.log("Mute Command has been executed.");
 }
 
 module.exports.help = {
