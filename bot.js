@@ -8,7 +8,7 @@ bot.commands = new Discord.Collection();
 fs.readdir()("./Commands/", (err, files) => {
     if (err) console.error(err);
 
-    Let jsfiles = files.filter(f => f.split(".").pop() === "js");
+    Let; jsfiles = files.filter(f => f.split(".").pop() === "js");
     if (jsfiles.length <= 0) {
         console.log("No commands to be loaded!")
         return;
@@ -17,7 +17,7 @@ fs.readdir()("./Commands/", (err, files) => {
     console.log('Loading ${jsfiles.length} commands!')
 
     jsfiles.forEach((f, i) => {
-        Let props = require('./commands/${f}');
+        Let; props = require('./commands/${f}');
         console.log('${i + 1}: ${f} loaded!');
         bot.commands.set(f, props);
     });
