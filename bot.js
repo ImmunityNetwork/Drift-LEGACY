@@ -41,6 +41,8 @@ bot.on("message", async message => {
     if(cmd) cmd.run(bot, message, args);
 })
 
+
+
 bot.on("ready", async () => {
     console.log(``)
     console.log(`${bot.user.username} is at your service.`)
