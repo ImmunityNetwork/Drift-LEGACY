@@ -10,7 +10,8 @@
     "erlpack": "github:hammerandchisel/erlpack",
     "ms": "^2.1.1",
     "node-opus": "^0.2.7",
-    "uws": "^9.14.0"
+    "uws": "^9.14.0",
+    "ytdl-core": "^0.18.5"
   },
   "devDependencies": {},
   "scripts": {
