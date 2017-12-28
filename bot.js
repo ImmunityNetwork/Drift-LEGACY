@@ -47,7 +47,7 @@ bot.on("ready", async () => {
     console.log(``)
     console.log(`${bot.user.username} is at your service.`)
     console.log(``)
-    console.log("Ready to begin! Serving in " + bot.channels.length + " channels")
+    console.log("Ready to begin! Serving in " + bot.guilds.length + " guilds.")
     console.log(``)
     console.log(bot.commands)
     bot.user.setPresence({ status: 'online', game: { name: 'Drift is active.' } })
