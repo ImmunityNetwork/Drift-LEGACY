@@ -2,6 +2,7 @@ const botSettings = require("./botsettings.json");
 const Discord = require("discord.js");
 const fs = require("fs");
 const prefix = botSettings.prefix;
+const music = require('discord.js-music-v11');
 
 const bot = new Discord.Client({disableEveryone: true});
 bot.commands = new Discord.Collection();
@@ -51,6 +52,14 @@ bot.on("ready", async () => {
     console.log(``)
     console.log(bot.commands)
     bot.user.setPresence({ status: 'online', game: { name: 'Drift is active.' } })
+});
+
+music(bot, {
+	prefix: '|',       // Prefix of '|'.
+	global: false,     // Server-specific queues.
+	maxQueueSize: 10,  // Maximum queue size of 10.
+	clearInvoker: true, // If permissions applicable, allow the bot to delete the messages that invoke it (start with prefix)
+    channel: 'music'   // Name of voice channel to join. If omitted, will instead join user's voice channel.
 });
 
 bot.login(botSettings.token);
