@@ -38,6 +38,7 @@ module.exports.run = async (bot, message, args) => {
         .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png");
         message.guild.member(user).removeRole(muteRole).then(() => {
             message.channel.sendEmbed(embed).then(message => message.delete(60000));
+            message.guild.member(user).sendMessage(`You have been unmuted by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
             bot.channels.get(modlogs.id).sendEmbed(embed).catch(console.error);
         });
     }
@@ -47,7 +48,7 @@ module.exports.run = async (bot, message, args) => {
             modlogs = await message.guild.createChannel(
                 `mod-logs`,
                 `text`);
-            message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.")
+            message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.").then(message => message.delete(60000));
         }catch(e){
             console.log(e.stack);
         }

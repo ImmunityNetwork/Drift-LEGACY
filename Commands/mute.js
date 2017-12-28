@@ -8,11 +8,11 @@ module.exports.run = async (bot, message, args) => {
     let muteRole = bot.guilds.get(message.guild.id).roles.find('name', 'Drift Muted');
     console.log(reason);
 
-    if(message.mentions.users.size < 1) return message.reply("you must mention someone to mute them. (Logic at its finest.)").catch(console.error);
+    if(message.mentions.users.size < 1) return message.reply("you must mention someone to mute them. (Logic at its finest.)").then(message => message.delete(60000));
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");
 
-    if(!message.guild.member(bot.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').catch(console.error);
+    if(!message.guild.member(bot.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(60000));
 
     if(!reason) {
         reason = "General Misconduct."
@@ -56,6 +56,7 @@ module.exports.run = async (bot, message, args) => {
         .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png");
         message.guild.member(user).addRole(muteRole).then(() => {
             message.channel.sendEmbed(embed).then(message => message.delete(3500));
+            message.guild.member(user).sendMessage(`You have been muted by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
             bot.channels.get(modlogs.id).sendEmbed(embed).catch(console.error);
         });
     }
