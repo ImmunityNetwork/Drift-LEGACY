@@ -1,4 +1,6 @@
 {
     "token": "<REDACTED>",
-    "prefix": "|"
+    "prefix": "|",
+    "bot_controller": "",
+    "yt_api_key": "AIzaSyCPHPi68HfDg0MNicQHEwNJR_QuB_7K69I"
 }
