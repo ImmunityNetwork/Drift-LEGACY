@@ -62,4 +62,4 @@ music(bot, {
     channel: 'music'   // Name of voice channel to join. If omitted, will instead join user's voice channel.
 });
 
-bot.login(process.env.BOT_TOKEN);
+bot.login(process.env.TOKEN);
