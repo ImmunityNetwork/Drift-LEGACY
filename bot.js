@@ -29,6 +29,9 @@ fs.readdir("./Commands/", (err, files) => {
 });
 
 bot.on("message", async message => {
+   if(message.content === botSettings.token){
+            message.delete(0);
+        }
     if(message.author.bot) return;
     if(message.channel.type === "dm") return;
 
@@ -40,6 +43,7 @@ bot.on("message", async message => {
 
     let cmd = bot.commands.get(command.slice(prefix.length))
     if(cmd) cmd.run(bot, message, args);
+    
 })
 
 
@@ -48,10 +52,11 @@ bot.on("ready", async () => {
     console.log(``)
     console.log(`${bot.user.username} is at your service.`)
     console.log(``)
-    console.log("Ready to begin! Serving in " + bot.guilds.length + " guilds.")
+    console.log("Ready to begin! Serving in " + bot.guilds.size + " guilds.")
     console.log(``)
     console.log(bot.commands)
-    bot.user.setPresence({ status: 'online', game: { name: 'Drift is active.' } })
+    bot.user.setPresence({ status: 'online', game: { name: 'in ' + bot.guilds.size + ' servers.' } })
+    
 });
 
 music(bot, {
