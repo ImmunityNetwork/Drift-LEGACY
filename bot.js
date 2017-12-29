@@ -2,7 +2,6 @@ const botSettings = require("./botsettings.json");
 const Discord = require("discord.js");
 const fs = require("fs");
 const prefix = botSettings.prefix;
-const music = require('discord.js-music-v11');
 
 const bot = new Discord.Client({disableEveryone: true});
 bot.commands = new Discord.Collection();
@@ -54,6 +53,7 @@ bot.on("ready", async () => {
     bot.user.setPresence({ status: 'online', game: { name: 'Drift is active.' } })
 });
 
+<<<<<<< HEAD
 music(bot, {
 	prefix: '|',       // Prefix of '|'.
 	global: false,     // Server-specific queues.
@@ -62,4 +62,11 @@ music(bot, {
     channel: 'music'   // Name of voice channel to join. If omitted, will instead join user's voice channel.
 });
 
+<<<<<<< HEAD
 bot.login(process.env.TOKEN);
+=======
+bot.login(botSettings.token);
+>>>>>>> parent of 858bd00... Got a lot done; heroku test
+=======
+bot.login(process.env.BOT_TOKEN);
+>>>>>>> parent of 7093dad... Update bot.js
