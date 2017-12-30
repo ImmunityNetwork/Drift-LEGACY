@@ -6,6 +6,8 @@ const ytdl = require('ytdl-core');
  * Takes a discord.js client and turns it into a music bot.
  * Thanks to 'derekmartinez18' for helping.
  * 
+ * Modified by The Drift Development Team.
+ * 
  * @param {Client} client - The discord.js client.
  * @param {object} options - (Optional) Options to configure the music bot. Acceptable options are:
  * 							prefix: The prefix to use for the commands (default '!').
@@ -168,13 +170,14 @@ module.exports = function (client, options) {
 					return response.edit({embed: embedInvalidVideo});
 				}
 
-				info.requester = msg.author.id;
+				info.requester = msg.author.username;
 
 				// Queue the video.
 	let embedQueued = new Discord.RichEmbed()
         .setAuthor('Drift Music -')
 		.setColor(0x00AE86)
-        .addField('Queued: ' + info.title, 'The bot overlords have answered your call!')
+		.addField('Queued: ' + info.title, 'The bot overlords have answered your call!')
+		.addField(`Queued By: - `, `${info.requester}`)
         .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png");
 	
 				response.edit({embed: embedQueued}).then(() => {
