@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
     let user = args[0];
     let modlogs = bot.channels.find('name', 'mod-logs');
     console.log(reason);
-
+    if(!message.guild.member(message.author.user).hasPermmision(BAN_MEMBERS)) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
     if(!user) return message.reply("You must use an id of someone to unban them. (Logic at its finest, hopefully.)").then(message => message.delete(60000));
     
     if(!modlogs) {
