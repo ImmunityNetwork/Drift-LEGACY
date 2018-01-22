@@ -1,4 +1,5 @@
-const Discord = require("discord.js");
+const { RichEmbed } = require('discord.js');
+
 
 module.exports.run = async (bot, message, args) => {
     console.log(args);
@@ -28,13 +29,13 @@ module.exports.run = async (bot, message, args) => {
     if(!message.guild.member(user).kickable){
         return message.reply(`I have no power to kick them from the server at this time.`).then(message => message.delete(60000));
     } else {
-        const embed = new Discord.RichEmbed()
+        const embed = new RichEmbed()
         .setTitle('')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
         .addField('Action - ', 'Kick')
-        .addField('User - ', `${user.username}#${user.discriminator}`)
-        .addField('Moderator - ', `${message.author.username}#${message.author.discriminator}`)
+        .addField('User - ', user.tag)
+        .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', `${reason}`)
         .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png");
         message.channel.sendEmbed(embed).then(message => message.delete(60000));
