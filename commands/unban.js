@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
 
     if(!reason) reason = "Accepted appeal.";
 
-        const embed = new Discord.RichEmbed()
+        const embed = new RichEmbed()
         .setTitle('')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
