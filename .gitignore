@@ -58,4 +58,4 @@ typings/
 .env
 
 botsettings.json
-botsettings.json
+node_modules/
