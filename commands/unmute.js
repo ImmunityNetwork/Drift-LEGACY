@@ -1,4 +1,5 @@
-const Discord = require("discord.js");
+const { RichEmbed } = require('discord.js');
+
 
 module.exports.run = async (bot, message, args) => {
     console.log(args);
@@ -19,21 +20,21 @@ module.exports.run = async (bot, message, args) => {
     }
 
     if(!message.guild.member(user).roles.has(muteRole.id)) {
-        const embed2 = new Discord.RichEmbed()
+        const embed2 = new RichEmbed()
         .setTitle('')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
-        .addField('User - ', `${user.username}#${user.discriminator} is already not muted!`)
+        .addField('User - ', `${user.tag} is not muted!`)
         .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png");
         message.channel.sendEmbed(embed2).then(message => message.delete(60000));
     }else{
-        const embed = new Discord.RichEmbed()
+        const embed = new RichEmbed()
         .setTitle('')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
         .addField('Action - ', 'Unmute')
-        .addField('User - ', `${user.username}#${user.discriminator}`)
-        .addField('Moderator - ', `${message.author.username}#${message.author.discriminator}`)
+        .addField('User - ', user.tag)
+        .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', `${reason}`)
         .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png");
         message.guild.member(user).removeRole(muteRole).then(() => {
@@ -54,7 +55,7 @@ module.exports.run = async (bot, message, args) => {
         }
     }
 
-    const embed = new Discord.RichEmbed()
+    const embed = new RichEmbed()
     .setTitle('')
     .setAuthor('Drift Moderation -', message.author.avatarURL)
     .setColor(0x00AE86)

@@ -1,4 +1,5 @@
-const Discord = require("discord.js");
+const { RichEmbed } = require('discord.js');
+
 
 module.exports.run = async (bot, message, args) => {
     console.log(args);
@@ -6,8 +7,8 @@ module.exports.run = async (bot, message, args) => {
     let user = message.mentions.users.first();
     let modlogs = bot.channels.find('name', 'mod-logs');
     console.log(reason);
-    if(!message.guild.member(message.author.user).hasPermmision(BAN_MEMBERS)) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
-    if(message.mentions.users.size < 1) return message.reply("you must mention someone to ban them. (Logic at its finest.)").then(message => message.delete(60000));
+    if(!message.guild.member(message.author.user).hasPermission(KICK_MEMBERS)) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
+    if(message.mentions.users.size < 1) return message.reply("you must mention someone to kick them. (Logic at its finest.)").then(message => message.delete(60000));
     
     if(!modlogs) {
         try{
@@ -25,27 +26,27 @@ module.exports.run = async (bot, message, args) => {
     }
 
 
-    if(!message.guild.member(user).bannable){
-        return message.reply(`I have no power to ban them from the server at this time.`).then(message => message.delete(60000));
+    if(!message.guild.member(user).kickable){
+        return message.reply(`I have no power to kick them from the server at this time.`).then(message => message.delete(60000));
     } else {
-        const embed = new Discord.RichEmbed()
+        const embed = new RichEmbed()
         .setTitle('')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
-        .addField('Action - ', 'Ban')
-        .addField('User - ', `${user.username}#${user.discriminator}`)
-        .addField('Moderator - ', `${message.author.username}#${message.author.discriminator}`)
+        .addField('Action - ', 'Kick')
+        .addField('User - ', user.tag)
+        .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', `${reason}`)
         .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png");
         message.channel.sendEmbed(embed).then(message => message.delete(60000));
         bot.channels.get(modlogs.id).sendEmbed(embed);
-        message.guild.member(user).sendMessage(`You have been banned by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
-        message.guild.member(user).ban();
+        message.guild.member(user).sendMessage(`You have been kicked by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
+        message.guild.member(user).kick();
     }
 
 }
 
 module.exports.help = {
-    name: "ban"
+    name: "kick"
 }
 

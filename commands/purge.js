@@ -1,10 +1,11 @@
-const Discord = require("discord.js");
+const { RichEmbed } = require('discord.js');
+
 
 module.exports.run = async (bot, message, args) => {
     let messages = args[0];
     let delet = messages+1;
     let modlogs = bot.channels.find('name', 'mod-logs');
-    if(!message.guild.member(message.author.user).hasPermmision(MANAGE_MESSAGES)) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
+    if(!message.guild.member(message.author.user).hasPermission(MANAGE_MESSAGES)) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
     if(!modlogs) {
         try{
             modlogs = await message.guild.createChannel(
@@ -20,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
         
         message.channel.bulkDelete(fetched);
      
-    let embed = new Discord.RichEmbed()
+    let embed = new RichEmbed()
         .setAuthor("Drift Purge")
         .setDescription(`Deleted ${messages} messages in #${message.channel.name}.`)
         .setThumbnail("https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")
