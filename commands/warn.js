@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) => {
     let user = message.mentions.users.first();
     let modlogs = bot.channels.find('name', 'mod-logs');
     console.log(reason);
-    if(!message.guild.member(message.author.user).hasPermission(KICK_MEMBERS)) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
+//    if(!message.guild.member(message.author.user).hasPermission(KICK_MEMBERS)) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
     if(message.mentions.users.size < 1) return message.reply("you must mention someone to warn them. (Logic at its finest.)").catch(console.error);
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");
