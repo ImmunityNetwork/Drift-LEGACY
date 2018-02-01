@@ -2,7 +2,6 @@ const botSettings = require("./botsettings.json");
 const Discord = require("discord.js");
 const fs = require("fs");
 const prefix = botSettings.prefix;
-const music = require('./musicdependency.js');
 
 const bot = new Discord.Client({disableEveryone: true});
 bot.commands = new Discord.Collection();
@@ -28,6 +27,8 @@ fs.readdir("./Commands/", (err, files) => {
 
 });
 
+// Bot Events
+
 bot.on("message", async message => {
    if(message.content === botSettings.token){
             message.delete(0);
@@ -47,6 +48,36 @@ bot.on("message", async message => {
 })
 
 
+bot.on('guildDelete', guild => {
+    console.log(`I have left ${guild.name}.`);
+})
+
+bot.on ('guildCreate', guild => {
+    console.log(`I have joined ${guild.name}.`);
+})
+
+bot.on('messageDelete', msg => {
+    let modlogs = bot.channels.find('name', 'mod-logs');
+
+    if(!modlogs) {
+        try{
+            modlogs = message.guild.createChannel(
+                `mod-logs`,
+                `text`);
+            message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.");
+        }catch(e){
+            console.log(e.stack);
+        }
+    }
+    const embed = new Discord.RichEmbed()
+        .setTitle('')
+        .setAuthor('Drift Moderation - ')
+        .setColor(0x00AE86)
+        .addField('Action - ', 'Message Deletion')
+        .addField('User - ', msg.author.tag)
+        .addField('Message - ', msg.cleanContent)
+    bot.channels.get(modlogs.id).sendEmbed(embed);
+});
 
 bot.on("ready", async () => {
     console.log(``)
@@ -57,14 +88,6 @@ bot.on("ready", async () => {
     console.log(bot.commands)
     bot.user.setPresence({ status: 'online', game: { name: 'in ' + bot.guilds.size + ' servers.' } })
     
-});
-
-music(bot, {
-	prefix: '|',       // Prefix of '|'.
-	global: false,     // Server-specific queues.
-	maxQueueSize: 25,  // Maximum queue size of 25.
-	clearInvoker: true, // If permissions applicable, allow the bot to delete the messages that invoke it (start with prefix)
-    channel: ''   // Name of voice channel to join. If omitted, will instead join user's voice channel.
 });
 
 bot.login(botSettings.token);

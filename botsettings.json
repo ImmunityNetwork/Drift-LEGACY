@@ -1,6 +1,5 @@
 {
     "token": "<REDACTED>",
-    "prefix": "!",
-    "bot_controller": "",
+    "prefix": "dr!",
     "yt_api_key": "<REDACTED>"
 }
