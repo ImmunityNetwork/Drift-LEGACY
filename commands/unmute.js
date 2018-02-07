@@ -7,8 +7,9 @@ module.exports.run = async (bot, message, args) => {
     let user = message.mentions.users.first();
     let modlogs = bot.channels.find('name', 'mod-logs');
     let muteRole = bot.guilds.get(message.guild.id).roles.find('name', 'Drift Muted');
+    let kickperm = message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS");
     console.log(reason);
-    if(!message.guild.member(message.author.user).hasPermmision(KICK_MEMBERS)) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
+    if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
     if(message.mentions.users.size < 1) return message.reply("you must mention someone to unmute them. (Logic at its finest.)").then(message => message.delete(600000));
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");

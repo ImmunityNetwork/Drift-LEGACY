@@ -6,8 +6,9 @@ module.exports.run = async (bot, message, args) => {
     let reason = args.slice(1).join(' ');
     let user = args[0];
     let modlogs = bot.channels.find('name', 'mod-logs');
+    let banperm = message.channel.permissionsFor(message.member).hasPermission("BAN_MEMBERS");
     console.log(reason);
-    if(!message.guild.member(message.author.user).hasPermission(BAN_MEMBERS)) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
+    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
     if(!user) return message.reply("You must use an id of someone to unban them. (Logic at its finest, hopefully.)").then(message => message.delete(60000));
     
     if(!modlogs) {

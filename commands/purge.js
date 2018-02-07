@@ -5,7 +5,8 @@ module.exports.run = async (bot, message, args) => {
     let messages = args[0];
     let delet = messages+1;
     let modlogs = bot.channels.find('name', 'mod-logs');
-//    if(!message.guild.member(message.author.user).hasPermission(MANAGE_MESSAGES)) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
+    let managemessagesperm = message.channel.permissionsFor(message.member).hasPermission("MANAGE_MESSAGES");
+    if(!managemessagesperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
     if(!modlogs) {
         try{
             modlogs = await message.guild.createChannel(
