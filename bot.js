@@ -75,7 +75,7 @@ bot.on('messageDelete', msg => {
         .setColor(0x00AE86)
         .addField('Action - ', 'Message Deletion')
         .addField('User - ', msg.author.tag)
-        .addField('Message - ', msg.cleanContent)
+        //.addField('Message - ', msg.cleanContent)
     bot.channels.get(modlogs.id).sendEmbed(embed);
 });
 
