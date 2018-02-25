@@ -21,8 +21,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("|unban - ", "Pardon someone from the BAN HAMMER.")
         .addField("|unmute - ", "Unsilence someone with the power of the Unmute Command.")
         .addField("|user - ", "Read some interesting information about yourself.")
-        .addField("|warn - ", "Give a friendly warning to someone.")
-        .setFooter(`Drift is protected under GPL-3.0. ${message.author.createdAt}.`, "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png");
+        .addField("|warn - ", "Give a friendly warning to someone.");
     message.channel.send({embed: embed}).then(message => message.delete(60000));
 }
 
