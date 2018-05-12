@@ -35,7 +35,7 @@ module.exports.run = async (bot, message, args) => {
     .addField('Moderator - ', message.author.tag)
     .addField('Reason - ', `${reason}`);
     message.channel.sendEmbed(embed);
-    return bot.channels.get(modlogs.id).sendEmbed(embed);
+    return message.guild.channels.get(modlogs.id).sendEmbed(embed);
 
 }
 

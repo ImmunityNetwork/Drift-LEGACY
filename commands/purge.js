@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, args) => {
         .setColor(0x00AE86)
         .addField('Moderator - ', `${message.author.username}#${message.author.discriminator}`);
 message.channel.send({embed: embed}).then(message => message.delete(60000));
-bot.channels.get(modlogs.id).sendEmbed(embed);
+message.guild.channels.get(modlogs.id).sendEmbed(embed);
 }
 
 module.exports.help = {

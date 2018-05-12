@@ -40,7 +40,7 @@ module.exports.run = async (bot, message, args) => {
         message.guild.member(user).removeRole(muteRole).then(() => {
             message.channel.sendEmbed(embed).then(message => message.delete(60000));
             message.guild.member(user).sendMessage(`You have been unmuted by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
-            bot.channels.get(modlogs.id).sendEmbed(embed).catch(console.error);
+            message.guild.channels.get(modlogs.id).sendEmbed(embed).catch(console.error);
         });
     }
 

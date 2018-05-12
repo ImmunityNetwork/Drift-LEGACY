@@ -56,4 +56,8 @@ typings/
 # dotenv environment variables file
 .env
 
+#Bot Settings
 botsettings.json
+
+#Node
+node_modules/

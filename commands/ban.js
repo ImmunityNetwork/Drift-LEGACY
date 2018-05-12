@@ -39,7 +39,7 @@ module.exports.run = async (bot, message, args) => {
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', reason);
         message.channel.sendEmbed(embed).then(message => message.delete(60000));
-        bot.channels.get(modlogs.id).sendEmbed(embed);
+        message.guild.channels.get(modlogs.id).sendEmbed(embed);
         message.guild.member(user).sendMessage(`You have been banned by ${message.author.tag} due to ${reason}`);
         message.guild.member(user).ban();
     }
