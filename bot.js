@@ -56,8 +56,8 @@ bot.on('guildCreate', guild => {
   console.log(`I have joined ${guild.name}.`);
 })
 
-bot.on('messageDelete', msg => {
-  let modlogs = msg.guild.channels.find('name', 'mod-logs');
+bot.on('messageDelete', message => {
+  let modlogs = message.guild.channels.find('name', 'mod-logs');
 
   if (!modlogs) {
     try {
@@ -74,9 +74,9 @@ bot.on('messageDelete', msg => {
     .setAuthor('Drift Moderation - ')
     .setColor(0x00AE86)
     .addField('Action - ', 'Message Deletion')
-    .addField('User - ', msg.author.tag)
+    .addField('User - ', message.author.tag)
   //.addField('Message - ', msg.cleanContent)
-  modlogs.sendEmbed({
+  modlogs.send({
     embed
   });
 });
