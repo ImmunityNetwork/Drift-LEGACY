@@ -7,87 +7,94 @@ const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
 
 fs.readdir("./Commands/", (err, files) => {
-    if (err) console.error(err);
+  if (err) console.error(err);
 
-    let jsfiles = files.filter(f => f.split(".").pop() === "js");
-    if (jsfiles.length <= 0) {
-        console.log('')
-        console.log("No commands to be loaded!")
-        return;
-    }
+  let jsfiles = files.filter(f => f.split(".").pop() === "js");
+  if (jsfiles.length <= 0) {
+    console.log('')
+    console.log("No commands to be loaded!")
+    return;
+  }
 
-    console.log(``)
-    console.log(`Loading ${jsfiles.length} commands!`)
+  console.log(``)
+  console.log(`Loading ${jsfiles.length} commands!`)
 
-    jsfiles.forEach((f, i) => {
-        let props = require(`./commands/${f}`);
-        console.log(`${i + 1}: ${f} loaded!`);
-        bot.commands.set(props.help.name, props);
-    });
+  jsfiles.forEach((f, i) => {
+    let props = require(`./commands/${f}`);
+    console.log(`${i + 1}: ${f} loaded!`);
+    bot.commands.set(props.help.name, props);
+  });
 
 });
 
 // Bot Events
 
 bot.on("message", async message => {
-   if(message.content === botSettings.token){
-            message.delete(0);
-        }
-    if(message.author.bot) return;
-    if(message.channel.type === "dm") return;
+  if (message.content === botSettings.token) {
+    message.delete(0);
+  }
+  if (message.author.bot) return;
+  if (message.channel.type === "dm") return;
 
-    let messageArray = message.content.split(/\s+/g);
-    let command = messageArray[0];
-    let args = messageArray.slice(1);
+  let messageArray = message.content.split(/\s+/g);
+  let command = messageArray[0];
+  let args = messageArray.slice(1);
 
-    if(!command.startsWith(prefix)) return;
+  if (!command.startsWith(prefix)) return;
 
-    let cmd = bot.commands.get(command.slice(prefix.length))
-    if(cmd) cmd.run(bot, message, args);
-    
+  let cmd = bot.commands.get(command.slice(prefix.length))
+  if (cmd) cmd.run(bot, message, args);
+
 })
 
 
 bot.on('guildDelete', guild => {
-    console.log(`I have left ${guild.name}.`);
+  console.log(`I have left ${guild.name}.`);
 })
 
-bot.on ('guildCreate', guild => {
-    console.log(`I have joined ${guild.name}.`);
+bot.on('guildCreate', guild => {
+  console.log(`I have joined ${guild.name}.`);
 })
 
 bot.on('messageDelete', msg => {
-    let modlogs = bot.channels.find('name', 'mod-logs');
+  let modlogs = msg.guild.channels.find('name', 'mod-logs');
 
-    if(!modlogs) {
-        try{
-            modlogs = message.guild.createChannel(
-                `mod-logs`,
-                `text`);
-            message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.");
-        }catch(e){
-            console.log(e.stack);
-        }
+  if (!modlogs) {
+    try {
+      modlogs = message.guild.createChannel(
+        `mod-logs`,
+        `text`);
+      message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.");
+    } catch (e) {
+      console.log(e.stack);
     }
-    const embed = new Discord.RichEmbed()
-        .setTitle('')
-        .setAuthor('Drift Moderation - ')
-        .setColor(0x00AE86)
-        .addField('Action - ', 'Message Deletion')
-        .addField('User - ', msg.author.tag)
-        //.addField('Message - ', msg.cleanContent)
-    bot.channels.get(modlogs.id).sendEmbed(embed);
+  }
+  const embed = new Discord.RichEmbed()
+    .setTitle('')
+    .setAuthor('Drift Moderation - ')
+    .setColor(0x00AE86)
+    .addField('Action - ', 'Message Deletion')
+    .addField('User - ', msg.author.tag)
+  //.addField('Message - ', msg.cleanContent)
+  modlogs.sendEmbed({
+    embed
+  });
 });
 
 bot.on("ready", async () => {
-    console.log(``)
-    console.log(`${bot.user.username} is at your service.`)
-    console.log(``)
-    console.log("Ready to begin! Serving in " + bot.guilds.size + " guilds.")
-    console.log(``)
-    console.log(bot.commands)
-    bot.user.setPresence({ status: 'online', game: { name: 'in ' + bot.guilds.size + ' servers.' } })
-    
+  console.log(``)
+  console.log(`${bot.user.username} is at your service.`)
+  console.log(``)
+  console.log("Ready to begin! Serving in " + bot.guilds.size + " guilds.")
+  console.log(``)
+  console.log(bot.commands)
+  bot.user.setPresence({
+    status: 'online',
+    game: {
+      name: 'in ' + bot.guilds.size + ' servers.'
+    }
+  })
+
 });
 
 bot.login(botSettings.token);
