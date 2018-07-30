@@ -40,10 +40,18 @@ bot.on("message", async message => {
     let command = messageArray[0];
     let args = messageArray.slice(1);
 
+    console.log(message.channel.id);
+    if (message.channel.id === "450830883440558091") {
+      console.log("New suggestion in " + message.channel.name);
+      message.react("👍").then(message.react("👎"));
+    }
+
     if(!command.startsWith(prefix)) return;
 
     let cmd = bot.commands.get(command.slice(prefix.length))
     if(cmd) cmd.run(bot, message, args);
+
+
 
 })
 
