@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) => {
     console.log(args);
     let reason = args.slice(1).join(' ');
     let user = message.mentions.users.first();
-    let modlogs = bot.channels.find('name', 'mod-logs');
+    let modlogs = message.guild.channels.find('name', 'mod-logs');
     let kickperm = message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS");
     console.log(reason);
     if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
@@ -34,8 +34,8 @@ module.exports.run = async (bot, message, args) => {
     .addField('User - ', user.tag)
     .addField('Moderator - ', message.author.tag)
     .addField('Reason - ', `${reason}`);
-    message.channel.sendEmbed(embed);
-    return message.guild.channels.get(modlogs.id).sendEmbed(embed);
+    message.channel.send({embed});
+    return message.guild.channels.get(modlogs.id).send({embed});
 
 }
 

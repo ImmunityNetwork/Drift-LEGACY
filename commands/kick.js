@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) => {
     console.log(args);
     let reason = args.slice(1).join(' ');
     let user = message.mentions.users.first();
-    let modlogs = bot.channels.find('name', 'mod-logs');
+    let modlogs = message.guild.channels.find('name', 'mod-logs');
     let kickperm = message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS");
     console.log(reason);
     if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
@@ -38,9 +38,9 @@ module.exports.run = async (bot, message, args) => {
         .addField('User - ', user.tag)
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', `${reason}`);
-        message.channel.sendEmbed(embed).then(message => message.delete(60000));
-        message.guild.channels.get(modlogs.id).sendEmbed(embed);
-        message.guild.member(user).sendMessage(`You have been kicked by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
+        message.channel.send({embed}).then(message => message.delete(60000));
+        message.guild.channels.get(modlogs.id).send({embed});
+        message.guild.member(user).send(`You have been kicked by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
         message.guild.member(user).kick();
     }
 

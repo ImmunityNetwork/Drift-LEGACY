@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) => {
     console.log(args);
     let reason = args.slice(1).join(' ');
     let user = message.mentions.users.first();
-    let modlogs = bot.channels.find('name', 'mod-logs');
+    let modlogs = message.guild.channels.find('name', 'mod-logs');
     let banperm = message.channel.permissionsFor(message.member).hasPermission("BAN_MEMBERS");
     console.log(reason);
     if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
@@ -39,8 +39,8 @@ module.exports.run = async (bot, message, args) => {
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', reason);
         message.channel.sendEmbed(embed).then(message => message.delete(60000));
-        message.guild.channels.get(modlogs.id).sendEmbed(embed);
-        message.guild.member(user).sendMessage(`You have been banned by ${message.author.tag} due to ${reason}`);
+        message.guild.channels.get(modlogs.id).send({embed});
+        message.guild.member(user).send(`You have been banned by ${message.author.tag} due to ${reason}`);
         message.guild.member(user).ban();
     }
 

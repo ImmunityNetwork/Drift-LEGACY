@@ -7,8 +7,6 @@ module.exports.run = async (bot, message, args) => {
         .setColor("#9B59B6")
         .setDescription("Ping - ", 'Pong! Your ping is `' + `${Date.now() - message.createdTimestamp}` + ' ms`')
         .addField("Created At - ", message.author.createdAt);
-
-    console.log("Ping Command has been executed.");
     message.channel.send({embed: embed});
 }
 

@@ -5,8 +5,8 @@ module.exports.run = async (bot, message, args) => {
     console.log(args);
     let reason = args.slice(1).join(' ');
     let user = message.mentions.users.first();
-    let modlogs = bot.channels.find('name', 'mod-logs');
-    let muteRole = bot.guilds.get(message.guild.id).roles.find('name', 'Drift Muted');
+    let modlogs = message.guild.channels.find('name', 'mod-logs');
+    let muteRole = message.guild.roles.find('name', 'Drift Muted');
     let kickperm = message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS");
     console.log(reason);
     if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
@@ -38,9 +38,9 @@ module.exports.run = async (bot, message, args) => {
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', `${reason}`);
         message.guild.member(user).removeRole(muteRole).then(() => {
-            message.channel.sendEmbed(embed).then(message => message.delete(60000));
-            message.guild.member(user).sendMessage(`You have been unmuted by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
-            message.guild.channels.get(modlogs.id).sendEmbed(embed).catch(console.error);
+            message.channel.send({embed}).then(message => message.delete(60000));
+            message.guild.member(user).send(`You have been unmuted by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
+            message.guild.channels.get(modlogs.id).send({embed}).catch(console.error);
         });
     }
 
