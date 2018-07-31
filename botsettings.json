@@ -1,5 +1,6 @@
 {
     "token": "<REDACTED>",
-    "prefix": "|",
-    "yt_api_key": "<REDACTED>"
+    "prefix": "dr!",
+    "yt_api_key": "<REDACTED>",
+    "idioticapi": "<REDACTED>"
 }

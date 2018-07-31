@@ -2,8 +2,9 @@ const botSettings = require("./botsettings.json");
 const Discord = require("discord.js");
 const fs = require("fs");
 const prefix = botSettings.prefix;
-
+const Idiot = require("idiotic-api");
 const bot = new Discord.Client();
+bot.API = new Idiot.Client("your-token-here", { dev: true });
 bot.commands = new Discord.Collection();
 
 fs.readdir("./Commands/", (err, files) => {
