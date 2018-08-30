@@ -3,9 +3,13 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const prefix = botSettings.prefix;
 const Idiot = require("idiotic-api");
+const DBL = require("dblapi.js");
 const bot = new Discord.Client();
-bot.API = new Idiot.Client("your-token-here", { dev: true });
+const dbl = new DBL(botSettings.dbltoken, bot);
+bot.API = new Idiot.Client(botSettings.idioticapi, { dev: true });
 bot.commands = new Discord.Collection();
+
+//Command Handler
 
 fs.readdir("./Commands/", (err, files) => {
     if (err) console.error(err);
@@ -56,6 +60,7 @@ bot.on("message", async message => {
 
 })
 
+//Logging when drift leaves and joins
 
 bot.on('guildDelete', guild => {
   let jlLogs = bot.channels.get('473337788402761750');
@@ -71,6 +76,7 @@ bot.on ('guildCreate', guild => {
   console.log(`I have joined ${guild.name}.`);
 })
 
+//When a message is deleted
 bot.on('messageDelete', msg => {
     let modlogs = msg.guild.channels.find('name', 'mod-logs');
 
@@ -102,7 +108,6 @@ bot.on("ready", async () => {
     console.log(``)
     console.log(bot.commands)
     bot.user.setPresence({ status: 'online', game: { name: 'in ' + bot.guilds.size + ' servers.' } })
-
 });
 
 bot.login(botSettings.token);
