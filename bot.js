@@ -7,6 +7,7 @@ const DBL = require("dblapi.js");
 const bot = new Discord.Client();
 const dbl = new DBL(botSettings.dbltoken, bot);
 bot.API = new Idiot.Client(botSettings.idioticapi, { dev: true });
+const bot = new Discord.Client({disableEveryone: true});
 bot.commands = new Discord.Collection();
 
 //Command Handler
