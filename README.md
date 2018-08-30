@@ -25,6 +25,3 @@ If you need help setting up join our support server and ask a developer. discord
 <a href="https://discordbots.org/bot/403335081609134092" >
   <img src="https://discordbots.org/api/widget/403335081609134092.svg" alt="Drift" />
 </a>
-
-
-<iframe src="https://canary.discordapp.com/widget?id=350912847288729600&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
