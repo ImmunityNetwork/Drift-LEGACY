@@ -46,7 +46,6 @@ bot.on("message", async message => {
     let command = messageArray[0];
     let args = messageArray.slice(1);
 
-    console.log(message.channel.id);
     if (message.channel.id === "450830883440558091") {
       console.log("New suggestion in " + message.channel.name);
       message.react("👍").then(message.react("👎"));
@@ -79,14 +78,16 @@ bot.on ('guildCreate', guild => {
 
 //When a message is deleted
 bot.on('messageDelete', msg => {
+    if (message.author.id == bot.user.id) return;
     let modlogs = msg.guild.channels.find('name', 'mod-logs');
 
     if(!modlogs) {
         try{
-            modlogs = message.guild.createChannel(
+            modlogs = msg.guild.createChannel(
                 `mod-logs`,
                 `text`);
-            message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.");
+            //TODO Fix this.
+            //message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.");
         }catch(e){
             console.log(e.stack);
         }
@@ -98,7 +99,7 @@ bot.on('messageDelete', msg => {
         .addField('Action - ', 'Message Deletion')
         .addField('User - ', msg.author.tag)
         //.addField('Message - ', msg.cleanContent)
-    bot.channels.get(modlogs.id).sendEmbed(embed);
+    msg.guild.channels.get(modlogs.id).send({embed: embed});
 });
 
 bot.on("ready", async () => {
