@@ -2,17 +2,17 @@ const botSettings = require("./botsettings.json");
 const Discord = require("discord.js");
 const fs = require("fs");
 const prefix = botSettings.prefix;
+const bot = new Discord.Client({disableEveryone: true});
 const Idiot = require("idiotic-api");
 const DBL = require("dblapi.js");
-const bot = new Discord.Client();
 const dbl = new DBL(botSettings.dbltoken, bot);
 bot.API = new Idiot.Client(botSettings.idioticapi, { dev: true });
-const bot = new Discord.Client({disableEveryone: true});
+
 bot.commands = new Discord.Collection();
 
 //Command Handler
 
-fs.readdir("./Commands/", (err, files) => {
+fs.readdir("./commands/", (err, files) => {
     if (err) console.error(err);
 
     let jsfiles = files.filter(f => f.split(".").pop() === "js");
