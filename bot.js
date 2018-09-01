@@ -78,7 +78,7 @@ bot.on ('guildCreate', guild => {
 
 //When a message is deleted
 bot.on('messageDelete', msg => {
-    if (message.author.id == bot.user.id) return;
+    if (msg.author.id == bot.user.id) return;
     let modlogs = msg.guild.channels.find('name', 'mod-logs');
 
     if(!modlogs) {
