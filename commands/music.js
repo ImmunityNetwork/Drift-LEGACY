@@ -1,9 +1,4 @@
 const { RichEmbed } = require('discord.js');
-const ytdl = require('ytdl-core');
-const request = require('request');
-const getYoutubeID = require('get-youtube-id');
-const fetchVideoInfo = require('youtube-info');
-
 const botSettings = require('../botsettings.json');
 
 module.exports.run = async (bot, message, args) => {
