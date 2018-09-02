@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
         .setAuthor(message.author.username)
         .setDescription("This is your User Information!")
         .setThumbnail(message.author.avatarURL)
-        .setColor("#9B59B6")
+        .setColor("#1bade2")
         .addField("Full Username - ", message.author.tag)
         .addField("ID", message.author.id)
         .addField("Created At", message.author.createdAt);
@@ -14,5 +14,6 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "user"
+    name: "user",
+    description:"Read some interesting information about yourself."
 }

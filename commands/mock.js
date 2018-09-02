@@ -4,7 +4,7 @@ module.exports.run = async (bot, message, args) => {
 
   const embed = new RichEmbed()
     .setTitle("Mocked")
-    .setColor(0x8e8e8e)
+    .setColor("#1bade2")
     .setImage("https://i.imgur.com/B8s1txO.jpg")
     .setDescription(mockm)
     .setTimestamp();
@@ -14,5 +14,6 @@ module.exports.run = async (bot, message, args) => {
 };
 
 exports.help = {
-  name: "mock"
+  name: "mock",
+  description:"Mock some text just like ~~spongebob~~ spongemock."
 };

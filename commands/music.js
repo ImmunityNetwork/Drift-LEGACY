@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
         .setTitle("Drift Music Help Menu - ")
         .setDescription("Commands you can use for Drift!")
         .setThumbnail("https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")
-        .setColor("#9B59B6")
+        .setColor("#1bade2")
         .addField("**NOTE MUSIC IS NOT ENABLED, PLEASE CHECK BACK LATER** (For questions contact a Drift staff member)")
         .addField("|play - ", "Request a video for the robot hamsters to play!")
         .addField("|skip - ", "Request a skip!.")
@@ -22,5 +22,6 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "music"
+    name: "music",
+    description:"Sends a help embed for music commands."
 }
