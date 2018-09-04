@@ -2,7 +2,7 @@ const { RichEmbed } = require("discord.js");
 const botSettings = require("../botsettings.json");
 exports.run = (bot, message, args) => {
   let cmdsArray = [];
-  bot.commands.forEach(c => cmdsArray.push(c.help.name + ": " + c.help.description + "\n"));
+  bot.commands.forEach(c => cmdsArray.push(`**${c.help.name}**` + ": " + c.help.description + "\n"));
   const embed = new RichEmbed()
     .setTitle("Drift Help | Prefix " + botSettings.prefix)
     .setColor("#1bade2")
@@ -10,10 +10,10 @@ exports.run = (bot, message, args) => {
     .setDescription(cmdsArray)
     .setTimestamp();
 
-  message.channel.send({embed: embed});
+  message.channel.send(embed);
 };
 
 exports.help = {
-  name:"testhelp",
+  name:"help",
   description:"Sends this help message."
 };
