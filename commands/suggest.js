@@ -13,6 +13,8 @@ module.exports.run = async (bot, message, args) => {
 
   const embed = new RichEmbed()
     .setTitle('New Suggestion!')
+    .setColor("#1bade2")
+    .setTimestamp()
     .setFooter("Sent by " + message.author.tag)
     .setDescription(args);
   sflog.send({
@@ -27,5 +29,6 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-  name: "suggest"
+  name: "suggest",
+  description:"Suggest your idea to the Drift team!"
 }

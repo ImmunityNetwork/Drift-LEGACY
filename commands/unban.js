@@ -37,5 +37,6 @@ module.exports.run = async (bot, message, args) => {
         message.guild.member(user).sendMessage(`You have been unbanned by ${message.author.tag} due to ${reason}`);
 }
 module.exports.help = {
-    name: "unban"
+    name: "unban",
+    description:"Pardon someone from the BAN HAMMER."
 }

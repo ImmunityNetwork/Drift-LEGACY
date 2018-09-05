@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
         .setTitle('')
         .setAuthor('Drift Rocket -', 'https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png')
         .setThumbnail('https://static.pexels.com/photos/73871/rocket-launch-rocket-take-off-nasa-73871.jpeg')
-        .setColor(0x00AE86)
+        .setColor("#1bade2")
         .addField('Action - ', 'Launch')
         .addField(user.username + ' was launched into space by ' + message.author.username + '!', user.username + '`s rocket went to space!')
         .setImage('http://bestanimations.com/Sci-Fi/Rockets/nasa-rocket-in-space-animated-gif.gif');
@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, args) => {
         .setTitle('')
         .setAuthor('Drift Rocket -', 'https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png')
         .setThumbnail('https://static.pexels.com/photos/73871/rocket-launch-rocket-take-off-nasa-73871.jpeg')
-        .setColor(0x00AE86)
+        .setColor("#1bade2")
         .addField('Action - ', 'Launch')
         .addField(user.username + ' was launched into space by ' + message.author.username + '!', user.username + '`s rocket blew up!')
         .setImage('https://i.imgur.com/8jO42v5.gif');
@@ -39,5 +39,6 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "launch"
+    name: "launch",
+    description:"Launch someone into space!"
 }

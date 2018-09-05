@@ -27,5 +27,6 @@ module.exports.run = (client, message, args) => {
 
 
 exports.help = {
-  name: "eval"
+  name: "eval",
+  description:"Evaluates Code."
 }

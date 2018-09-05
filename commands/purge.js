@@ -41,5 +41,6 @@ message.guild.channels.get(modlogs.id).send({embed});
 }
 
 module.exports.help = {
-    name: "purge"
+    name: "purge",
+    description:"Destroys the evidence. (Deletes mass amounts of messages)"
 }

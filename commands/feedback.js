@@ -12,6 +12,8 @@ module.exports.run = async (bot, message, args) => {
   const embed = new RichEmbed()
     .setTitle('Feedback')
     .setFooter("Sent by " + message.author.tag)
+    .setTimestamp()
+    .setColor("#1bade2")
     .setDescription(args);
   sflog.send({
     embed
@@ -25,5 +27,6 @@ module.exports.run = async (bot, message, args) => {
 
 
 module.exports.help = {
-  name: "feedback"
+  name: "feedback",
+  description:"Give feedback about the bot"
 };

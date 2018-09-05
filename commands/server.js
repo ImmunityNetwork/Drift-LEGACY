@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) => {
         .setAuthor(`${message.guild.name}`)
         .setDescription("This is your Server Information!")
         .setThumbnail(`${message.guild.iconURL}`)
-        .setColor("#9B59B6")
+        .setColor("#1bade2")
         .addField("Member Count - ", `${message.guild.memberCount}`)
         .addField("ID", `${message.guild.id}`)
         .addField("Roles", `${message.guild.roles.map(g => g.name)}`);
@@ -15,5 +15,6 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "server"
+    name: "server",
+    description:"Read some information about your own server!"
 }
