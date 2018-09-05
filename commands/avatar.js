@@ -1,12 +1,12 @@
+const { RichEmbed } = require("discord.js");
 module.exports.run = async (bot, message, args) => {
 
     let uA = message.mentions.users.first() || message.author;
 
-    let RE = require ('discord.js').RichEmbed;
-
-    let embed = new RE()
-    .setColor()
+    let embed = new RichEmbed()
+    .setColor("#1bade2")
     .setDescription(`**<@${uA.id}> 's avatar**`)
+    .setTimestamp()
     .setImage(uA.displayAvatarURL);
 
     message.channel.send(embed)
