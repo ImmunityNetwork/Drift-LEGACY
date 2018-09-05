@@ -5,11 +5,11 @@ module.exports.run = async (bot, message, args) => {
 
     let embed = new RichEmbed()
     .setColor("#1bade2")
-    .setDescription(`**<@${uA.id}> 's avatar**`)
+    .setDescription(`**<@${uA.id}>'s avatar**`)
     .setTimestamp()
     .setImage(uA.displayAvatarURL);
 
-    message.channel.send(embed)
+    message.channel.send({embed: embed}).catch(e => require("../utils/error.js").error(bot, e));
 
 
 }

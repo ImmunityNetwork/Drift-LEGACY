@@ -11,10 +11,9 @@ let messageArray = message.content.split(/\s+/g);
 let command = messageArray[0];
 let args = messageArray.slice(1);
 
-if (message.channel.id === "450830883440558091") {
-  console.log("New suggestion in " + message.channel.name);
-  message.react("👍").then(message.react("👎"));
-}
+// if (message.channel.id === "450830883440558091") {
+//   message.react("👍").then(message.react("👎"));
+// }
 
 if(!command.startsWith(prefix)) return;
 

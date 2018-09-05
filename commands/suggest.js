@@ -7,9 +7,9 @@ module.exports.run = async (bot, message, args) => {
   args = args.join(' ');
   // Suggestion Feedback log channel
   //Main Server
-  let sflog = bot.channels.get("449377057412087808");
-  //Dev Server (I think)
-  let sflog2 = bot.channels.get("450830883440558091");
+  let slog = bot.channels.get("484461009323556864");
+  //Staff Server
+  let slog2 = bot.channels.get("486364513101283343");
 
   const embed = new RichEmbed()
     .setTitle('New Suggestion!')
