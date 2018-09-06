@@ -2,6 +2,7 @@ const {
   RichEmbed
 } = require("discord.js");
 module.exports.run = async (bot, message, args) => {
+  return;
   if (args.length < 1) return msg.channel.send("You need to provide something to say (Abuse of this command may result in punishment)");
   args = args.join(' ');
   // Main Server
@@ -15,10 +16,10 @@ module.exports.run = async (bot, message, args) => {
     .setTimestamp()
     .setColor("#1bade2")
     .setDescription(args);
-  sflog.send({
+  flog.send({
     embed
   })
-  sflog2.send({
+  flog2.send({
     embed
   })
 }

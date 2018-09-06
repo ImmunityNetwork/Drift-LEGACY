@@ -3,6 +3,7 @@ const {
 } = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
+  return;
   if (args.length < 1) return msg.channel.send("You need to provide a suggestion!");
   args = args.join(' ');
   // Suggestion Feedback log channel
@@ -17,10 +18,10 @@ module.exports.run = async (bot, message, args) => {
     .setTimestamp()
     .setFooter("Sent by " + message.author.tag)
     .setDescription(args);
-  sflog.send({
+  slog.send({
     embed
   })
-  sflog2.send({
+  slog2.send({
     embed
   }).then( msg => {
     msg.react('👍').then(msg.react('👎'));
