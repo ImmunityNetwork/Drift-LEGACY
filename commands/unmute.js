@@ -25,9 +25,8 @@ module.exports.run = async (bot, message, args) => {
         .setTitle('')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
-        .addField('User - ', `${user.tag} is not muted!`)
-        .setFooter("Drift is protected under GPL-3.0.", "https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png");
-        message.channel.sendEmbed(embed2).then(message => message.delete(60000));
+        .addField('User - ', `${user.tag} is not muted!`);
+        message.channel.send({embed2}).then(message => message.delete(60000));
     }else{
         const embed = new RichEmbed()
         .setTitle('')
@@ -38,9 +37,9 @@ module.exports.run = async (bot, message, args) => {
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', `${reason}`);
         message.guild.member(user).removeRole(muteRole).then(() => {
-            message.channel.send({embed}).then(message => message.delete(60000));
-            message.guild.member(user).send(`You have been unmuted by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
-            message.guild.channels.get(modlogs.id).send({embed}).catch(console.error);
+          message.channel.send({embed}).then(message => message.delete(60000));
+          user.send(`You have been unmuted by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
+          modlogs.send({embed}).catch(console.error);
         });
     }
 

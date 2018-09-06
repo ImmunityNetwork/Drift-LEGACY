@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
                 `text`);
             message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.")
         }catch(e){
-            console.log(e.stack);
+            require("../utils/error.js").error(bot, e);
         }
     }
 
@@ -39,9 +39,9 @@ module.exports.run = async (bot, message, args) => {
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', `${reason}`);
         message.channel.send({embed}).then(message => message.delete(60000));
-        message.guild.channels.get(modlogs.id).send({embed});
-        message.guild.member(user).send(`You have been kicked by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
-        message.guild.member(user).kick();
+        modlogs.send({embed}).catch(e => require("../utils/error.js").error(bot, e));
+        user.send(`You have been kicked by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));;
+        message.guild.member(user).kick().catch(e => require("../utils/error.js").error(bot, e));;
     }
 
 }

@@ -31,7 +31,7 @@ module.exports.run = async (bot, message, args) => {
                 });
             });
         }catch(e) {
-            console.log(e.stack);
+            require("../utils/error.js").error(bot, e);
         }
     }
 
@@ -41,7 +41,7 @@ module.exports.run = async (bot, message, args) => {
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
         .addField('User - ', `${user.tag} is already muted!`);
-        message.channel.sendEmbed(embed2).then(message => message.delete(3500));
+        message.channel.sendEmbed(embed2).then(message => message.delete(3500)).catch(e => require("../utils/error.js").error(bot, e));
     }else{
         const embed = new RichEmbed()
         .setTitle('')
@@ -53,8 +53,8 @@ module.exports.run = async (bot, message, args) => {
         .addField('Reason - ', reason);
         message.guild.member(user).addRole(muteRole).then(() => {
             message.channel.send({embed}).then(message => message.delete(3500));
-            message.guild.member(user).send(`You have been muted by ${message.author.username}#${message.author.discriminator} due to ${reason}`);
-            message.guild.channels.get(modlogs.id).send({embed}).catch(console.error);
+            user.send(`You have been muted by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
+            message.guild.channels.get(modlogs.id).send({embed}).catch(e => require("../utils/error.js").error(bot, e));
         });
     }
 
@@ -65,7 +65,7 @@ module.exports.run = async (bot, message, args) => {
                 `text`);
             message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.")
         }catch(e){
-            console.log(e.stack);
+          require("../utils/error.js").error(bot, e);
         }
     }
 

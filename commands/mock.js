@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
     .setTimestamp();
   message.channel.send({
     embed
-  });
+  }).catch(e => require("../utils/error.js").error(bot, e));;
 };
 
 exports.help = {

@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("|volume - ", "Change the volume!")
         .addField("|leave - ", "Make the bot clear the queue and leave the channel.")
         .addField("|clear - ", "Clear the music queue!");
-    message.channel.send({embed: embed}).then(message => message.delete(60000));
+    message.channel.send({embed: embed}).then(message => message.delete(60000)).catch(e => require("../utils/error.js").error(bot, e));;
 
 
 }

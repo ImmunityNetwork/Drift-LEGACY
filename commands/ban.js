@@ -38,9 +38,9 @@ module.exports.run = async (bot, message, args) => {
         .addField('Reason - ', reason);
         message.reply(user.tag + "has been banned.")
         message.channel.sendEmbed(embed).then(message => message.delete(60000));
-        modlogs.send({embed: embed});
-        message.guild.member(user).send(`You have been banned by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`);
-        message.guild.member(user).ban();
+        modlogs.send({embed: embed}).catch(e => require("../utils/error.js").error(bot, e));
+        user.send(`You have been banned by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
+        message.guild.member(user).ban().catch(e => require("../utils/error.js").error(bot, e));
     }
 
 }

@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
         .addField('Action - ', 'Launch')
         .addField(user.username + ' was launched into space by ' + message.author.username + '!', user.username + '`s rocket went to space!')
         .setImage('http://bestanimations.com/Sci-Fi/Rockets/nasa-rocket-in-space-animated-gif.gif');
-    message.channel.sendEmbed(embed).then(message => message.delete(60000));
+    message.channel.sendEmbed(embed).then(message => message.delete(60000)).catch(e => require("../utils/error.js").error(bot, e));;
     } else {
     let embed = new RichEmbed()
         .setTitle('')
@@ -32,7 +32,7 @@ module.exports.run = async (bot, message, args) => {
         .addField('Action - ', 'Launch')
         .addField(user.username + ' was launched into space by ' + message.author.username + '!', user.username + '`s rocket blew up!')
         .setImage('https://i.imgur.com/8jO42v5.gif');
-    message.channel.sendEmbed(embed).then(message => message.delete(60000));
+    message.channel.sendEmbed(embed).then(message => message.delete(60000)).catch(e => require("../utils/error.js").error(bot, e));;
 
     }
 

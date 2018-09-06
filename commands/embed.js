@@ -6,7 +6,7 @@ module.exports.run = async (bot, msg, args) => {
   const embed = new RichEmbed()
     .addField(`${msg.author.tag} - `, args.join(" "))
     .setColor("#1bade2");
-  msg.channel.send({embed});
+  msg.channel.send({embed: embed}).catch(e => require('../utils/error.js').error(bot, e));
 };
 
 module.exports.help = {

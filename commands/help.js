@@ -60,7 +60,7 @@ let help3;
           help1.react("▶")
         })
       }
-      
+
       await help1.awaitReactions(reaction => reaction.emoji.name === "▶", {max: 2, time: 30000});
 
     if(help1.reactions.get("▶").count-1 === 1){
@@ -89,11 +89,11 @@ let help3;
           help1.react("▶")
         })
     }
-       
+
 help1.delete(30000);
 
       } catch(err){
-        console.log(err);
+        require("../utils/error.js").error(bot, err);
       }
 };
 
