@@ -74,6 +74,7 @@ let help3;
     await help1.awaitReactions(reaction => reaction.emoji.name === "◀", {max: 2, time: 30000});
 
     if(help1.reactions.get("◀").count-1 === 1){
+        help1.clearReactions();
         help1.edit(embed2)
         .then(() => {
           help1.react("◀")
