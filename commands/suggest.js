@@ -1,10 +1,8 @@
-const {
-  RichEmbed
-} = require("discord.js");
+const { RichEmbed } = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
-  return;
-  if (args.length < 1) return msg.channel.send("You need to provide a suggestion!");
+  return message.reply("This command is currently disabled while being fixed.");
+  /*if (args.length < 1) return msg.channel.send("You need to provide a suggestion!");
   args = args.join(' ');
   // Suggestion Feedback log channel
   //Main Server
@@ -26,8 +24,8 @@ module.exports.run = async (bot, message, args) => {
   }).then( msg => {
     msg.react('👍').then(msg.react('👎'));
 
-  })
-}
+  })*/
+};
 
 module.exports.help = {
   name: "suggest",
