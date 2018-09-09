@@ -1,6 +1,7 @@
 const { RichEmbed } = require('discord.js');
 
 module.exports.run = async (bot, message, args) => {
+    message.delete();
     console.log(args);
     let reason = args.slice(1).join(' ');
     let user = message.mentions.users.first();
@@ -8,8 +9,8 @@ module.exports.run = async (bot, message, args) => {
     let muteRole = message.guild.roles.find('name', 'Drift Muted');
     let kickperm = message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS");
     console.log(reason);
-    if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
-    if(message.mentions.users.size < 1) return message.reply("you must mention someone to mute them. (Logic at its finest.)").then(message => message.delete(60000));
+    if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
+    if(message.mentions.users.size < 1) return message.reply("You must mention someone to mute them.").then(message => message.delete(5000));
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");
 

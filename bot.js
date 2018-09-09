@@ -8,7 +8,7 @@ bot.commands = new Discord.Collection();
 
 //Command Handler
 fs.readdir("./commands/", (err, files) => {
-  if (err) require("./utils/error.js").error(bot, err);
+  if (err) console.error(err);
   let jsfiles = files.filter(f => f.split(".").pop() === "js");
   if (jsfiles.length <= 0) {
     console.log("");
@@ -27,9 +27,9 @@ fs.readdir("./commands/", (err, files) => {
 
 });
 
-// Event Handler 
+// Event Handler
 fs.readdir("./events/", (err, files) => {
-  if (err) require("./utils/error.js").error(bot, err);
+  if (err) return console.error(err);
   files.filter(file => {
     let eventFunction = require(`./events/${file}`);
     let eventName = file.split(".")[0];
@@ -40,11 +40,5 @@ fs.readdir("./events/", (err, files) => {
   });
   console.log(`[Events]\t Loaded a total amount of ${files.length} events!`);
 });
-
-// Unhandled Promise Rejection
-process.on("unhandledRejection", error => {
-  require("./utils/error.js").error(bot, error)
-});
-
 
 bot.login(botSettings.token);
