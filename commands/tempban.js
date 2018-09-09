@@ -1,63 +1,20 @@
 const { RichEmbed } = require('discord.js');
+const ms = require("ms");
+const moment = require("moment");
 
 module.exports.run = async (bot, message, args) => {
     message.delete();
-    console.log(args);
-    let reason = args.slice(1).join(' ');
-    let user = message.mentions.users.first();
+    let bantime = args[1];
+    if(!bantime) return message.reply("You didn't specify a time!");
+    let reason = args.slice(2).join(' ');
+    let buser = message.mentions.users.first();
     let modlogs = message.guild.channels.find('name', 'mod-logs');
-    let muteRole = message.guild.roles.find('name', 'Drift Muted');
-    let kickperm = message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS");
+    let banperm = message.member.permissions.has("BAN_MEMBERS");
     console.log(reason);
-    if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
-    if(message.mentions.users.size < 1) return message.reply("You must mention someone to mute them.").then(message => message.delete(5000));
+    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
+    if(message.mentions.users.size < 1) return message.reply("You must mention someone to ban them.").then(message => message.delete(5000));
 
-//    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");
-
-    if(!message.guild.member(bot.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(60000));
-
-    if(!reason) reason = 'General Misconduct';
-
-    if(!muteRole) {
-        try{
-            muteRole = await message.guild.createRole({
-                name: "Drift Muted",
-                color: "#000000",
-                permissions: []
-            });
-            message.guild.channels.forEach(async (channel, id) => {
-                await channel.overwritePermissions(role, {
-                    SEND_MESSAGES: false,
-                    ADD_REACTIONS: false
-                });
-            });
-        }catch(e) {
-            require("../utils/error.js").error(bot, e);
-        }
-    }
-
-    if(message.guild.member(user).roles.has(muteRole.id)) {
-        const embed2 = new RichEmbed()
-        .setTitle('')
-        .setAuthor('Drift Moderation -', message.author.avatarURL)
-        .setColor(0x00AE86)
-        .addField('User - ', `${user.tag} is already muted!`);
-        message.channel.sendEmbed(embed2).then(message => message.delete(3500)).catch(e => require("../utils/error.js").error(bot, e));
-    }else{
-        const embed = new RichEmbed()
-        .setTitle('')
-        .setAuthor('Drift Moderation -', message.author.avatarURL)
-        .setColor(0x00AE86)
-        .addField('Action - ', 'Mute')
-        .addField('User - ', user.tag)
-        .addField('Moderator - ', message.author.tag)
-        .addField('Reason - ', reason);
-        message.guild.member(user).addRole(muteRole).then(() => {
-            message.channel.send({embed}).then(message => message.delete(3500));
-            user.send(`You have been muted by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
-            message.guild.channels.get(modlogs.id).send({embed}).catch(e => require("../utils/error.js").error(bot, e));
-        });
-    }
+    if(!message.guild.member(bot.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(5000));
 
     if(!modlogs) {
         try{
@@ -66,13 +23,42 @@ module.exports.run = async (bot, message, args) => {
                 `text`);
             message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.")
         }catch(e){
-          require("../utils/error.js").error(bot, e);
+            require("../utils/error.js").error(bot, e);
         }
+    }
+
+    if(!reason) {
+        reason = "General Misconduct."
+    }
+
+
+    if(!message.guild.member(buser).bannable){
+        return message.reply(`I have no power to ban them from the server at this time.`).then(message => message.delete(60000));
+    } else {
+        const embed = new RichEmbed()
+        .setTitle('TempBan Report')
+        .setAuthor('Drift Moderation -', message.author.avatarURL)
+        .setDescription(`${message.author.username}'s tempban report on ${buser.tag}`)
+        .setColor('#1A8A39')
+        .addField("Banned user:", `${buser} with id ${buser.id}`)
+        .addField("Ban by:", `${message.author} with tag ${message.author.tag}`)
+        .addField("Banned for:", bantime)
+        .addField("Time:", `${moment().format('LTS')}`)
+        .addField("Date:", moment().format('LL'))
+        .addField("Reason:", reason)
+        .setFooter('Drift Ban -', message.author.avatarURL)
+        modlogs.send({embed: embed}).catch(e => require("../utils/error.js").error(bot, e));
+        buser.send(`You have been banned by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
+        message.guild.member(buser).ban().catch(e => require("../utils/error.js").error(bot, e));
+        setTimeout(function(){
+            message.guild.unban(buser.id);
+            buser.send(`You have been unbanned`);
+          }, ms(bantime));
     }
 
 }
 
 module.exports.help = {
-    name: "mute",
-    description:"Silence someone with the power of the mute command."
+    name: "tempban",
+    description:"Invoke the great power of the BAN HAMMER on someone, temporarily."
 }
