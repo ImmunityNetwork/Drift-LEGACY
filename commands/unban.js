@@ -28,9 +28,7 @@ module.exports.run = async (bot, message, args) => {
         .addField('User ID - ', `${user}`)
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', `${reason}`);
-        message.channel.send({embed}).then(message => message.delete(60000));
         modlogs.send({embed});
-
         message.guild.unban(user).catch(e => require("../utils/error.js").error(bot, e));
         user.send(`You have been unbanned by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
 }
