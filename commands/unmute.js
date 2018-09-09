@@ -37,7 +37,6 @@ module.exports.run = async (bot, message, args) => {
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', `${reason}`);
         message.guild.member(user).removeRole(muteRole).then(() => {
-          message.channel.send({embed}).then(message => message.delete(60000));
           user.send(`You have been unmuted by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
           modlogs.send({embed}).catch(console.error);
         });
