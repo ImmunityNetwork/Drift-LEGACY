@@ -6,7 +6,9 @@ const {
 module.exports.run = async (bot, message, args) => {
   let messages = args[0];
   let delet = messages + 1;
-  let modlogs = message.guild.channels.find('name', 'mod-logs');
+  let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
+  if (!modlogs) return message.channel.send(`Please make a \`mod-logs\` channel. Which the bot has permission to send messages!`)
+
   let managemessagesperm = message.channel.permissionsFor(message.member).has("MANAGE_MESSAGES");
   let botmanagemessage = message.guild.me.hasPermission("MANAGE_MESSAGES");
   if (!botmanagemessage) return message.reply("I dont have permmision to do that. I require the `MANAGE MESSAGES` Permission").then(message => message.delete(60000));

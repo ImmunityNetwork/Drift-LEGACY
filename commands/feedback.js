@@ -16,7 +16,7 @@ exports.run = async (bot, message, args) => {
     .setTimestamp()
     .setColor("#1bade2")
     .setDescription(args);
-  await flog.send(embed)
+  //await flog.send(embed)
 
   await flog2.send(embed)
 };
