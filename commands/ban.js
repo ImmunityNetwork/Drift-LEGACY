@@ -4,8 +4,8 @@ const { RichEmbed } = require('discord.js');
 module.exports.run = async (bot, message, args) => {
     message.delete();
     let reason = args.slice(1).join(' ');
-    let user = message.mentions.users.first();
-    let modlogs = message.guild.channels.find('name', 'mod-logs');
+    let user = message.mentions.members.first() || message.guild.member(args[0]);
+    let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
     
     let banperm = message.member.permissions.has("BAN_MEMBERS");
     if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));

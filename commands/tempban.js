@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) => {
     let bantime = args[1];
     if(!bantime) return message.reply("You didn't specify a time!");
     let reason = args.slice(2).join(' ');
-    let buser = message.mentions.users.first();
+    let buser = message.mentions.members.first() || message.guild.member(args[0]);
     let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
     if (!modlogs) return message.channel.send(`Please make a \`mod-logs\` channel. Which the bot has permission to send messages!`)
 

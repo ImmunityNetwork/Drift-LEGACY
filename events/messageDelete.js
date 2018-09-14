@@ -2,7 +2,7 @@ const { RichEmbed } = require("discord.js");
 exports.run = (bot, msg) =>
 {
   if (msg.author.id == bot.user.id) return;
-  let modlogs = msg.guild.channels.find("name", "mod-logs");
+  let modlogs = msg.guild.channels.find(s => s.name === "mod-logs");
 
   if(!modlogs) {
     try{

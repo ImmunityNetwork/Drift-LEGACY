@@ -4,7 +4,7 @@ const { RichEmbed } = require('discord.js');
 module.exports.run = async (bot, message, args) => {
     console.log(args);
     let reason = args.slice(1).join(' ');
-    let user = message.mentions.users.first();
+    let user = message.mentions.members.first() || message.guild.member(args[0]);
     let modlogs = message.guild.channels.find('name', 'mod-logs');
     let muteRole = message.guild.roles.find('name', 'Drift Muted');
     let kickperm = message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS");
