@@ -2,19 +2,19 @@ const { RichEmbed } = require('discord.js');
 
 module.exports.run = async (bot, message, args) => {
     message.delete();
-    console.log(args);
     let reason = args.slice(1).join(' ');
-    let user = message.mentions.users.first();
-    let modlogs = message.guild.channels.find('name', 'mod-logs');
-    let muteRole = message.guild.roles.find('name', 'Drift Muted');
-    let kickperm = message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS");
-    console.log(reason);
+    let user = message.mentions.members.first() || message.guild.member(args[0]);
+    let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
+    if (!modlogs) return message.channel.send(`Please make a \`mod-logs\` channel. Which the bot has permission to send messages!`)
+
+    let muteRole = message.guild.roles.find(r => r.name === 'Drift Muted');
+    let kickperm = message.member.hasPermission("KICK_MEMBERS");
     if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
-    if(message.mentions.users.size < 1) return message.reply("You must mention someone to mute them.").then(message => message.delete(5000));
+    if(!user) return message.reply("You must mention someone to mute them.").then(message => message.delete(5000));
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");
 
-    if(!message.guild.member(bot.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(60000));
+    if(!message.guild.member(bot.user).hasPermission('MANAGE_ROLES')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(60000));
 
     if(!reason) reason = 'General Misconduct';
 
@@ -36,26 +36,26 @@ module.exports.run = async (bot, message, args) => {
         }
     }
 
-    if(message.guild.member(user).roles.has(muteRole.id)) {
+    if(user.roles.has(muteRole)) {
         const embed2 = new RichEmbed()
         .setTitle('')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
-        .addField('User - ', `${user.tag} is already muted!`);
-        message.channel.sendEmbed(embed2).then(message => message.delete(3500)).catch(e => require("../utils/error.js").error(bot, e));
+        .addField('User - ', `${user.user.tag} is already muted!`);
+       return message.channel.send(embed2).then(message => message.delete(3500)).catch(e => require("../utils/error.js").error(bot, e));
     }else{
         const embed = new RichEmbed()
         .setTitle('')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
         .addField('Action - ', 'Mute')
-        .addField('User - ', user.tag)
+        .addField('User - ', user.user.tag)
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', reason);
-        message.guild.member(user).addRole(muteRole).then(() => {
-            message.channel.send({embed}).then(message => message.delete(3500));
+      user.addRole(muteRole).then(() => {
+            message.channel.send(embed).then(message => message.delete(3500));
             user.send(`You have been muted by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
-            message.guild.channels.get(modlogs.id).send({embed}).catch(e => require("../utils/error.js").error(bot, e));
+            message.guild.channels.find( c=> c.id === `${modlogs.id}`).send({embed}).catch(e => require("../utils/error.js").error(bot, e));
         });
     }
 
