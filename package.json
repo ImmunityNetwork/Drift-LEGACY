@@ -20,7 +20,7 @@
     "table": "^5.0.2",
     "uws": "^9.14.0",
     "youtube-info": "^1.1.2",
-    "ytdl-core": "^0.18.5"
+    "ytdl-core": "^0.25.0"
   },
   "devDependencies": {},
   "scripts": {
