@@ -3,11 +3,12 @@ const { RichEmbed } = require('discord.js');
 
 module.exports.run = async (bot, message, args) => {
     let reason = args.slice(1).join(' ');
-    let user = message.mentions.users.first();
-    let modlogs = message.guild.channels.find('name', 'mod-logs');
+    let user = message.mentions.members.first() || message.guild.member(args[0]);
+    let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
     let kickperm = message.member.permissions.has("MANAGE_MESSAGES");
     if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
-    if(message.mentions.users.size < 1) return message.reply("you must mention someone to warn them. (Logic at its finest.)").catch(e => require("../utils/error.js").error(bot, e));
+    if(message.mentions.users.size < 1)  return message.reply("you must mention someone or provide an id to warn them. (Logic at its finest.)").catch(e => require("../utils/error.js").error(bot, e));
+    // if(message.mentions.users.size < 1) return message.reply("you must mention someone or provide an id to warn them. (Logic at its finest.)").catch(e => require("../utils/error.js").error(bot, e));
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");
 

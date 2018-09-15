@@ -1,13 +1,15 @@
 const { RichEmbed } = require('discord.js');
-
-
 module.exports.run = async (bot, message, args) => {
-    let reason = args.slice(1).join(' ');
-    let user = message.mentions.users.first();
-    let modlogs = message.guild.channels.find('name', 'mod-logs');
-    let banperm = message.member.permissions.has("BAN_MEMBERS");
+    message.delete();
+ let reason = args.slice(1).join(' ');
+  let user = message.mentions.members.first() || message.guild.member(args[0]);
+  let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
+    	    
+    let banperm = message.member.permissions.has("BAN_MEMBERS")
     if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
-    if(message.mentions.users.size < 1) return message.reply("you must mention someone to ban them. (Logic at its finest.)").then(message => message.delete(60000));
+    if(message.mentions.users.size < 1) return message.reply("You must mention someone to ban them.").then(message => message.delete(60000));
+
+    if(!message.guild.member(bot.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(5000));
 
     if(!modlogs) {
         try{
@@ -36,8 +38,6 @@ module.exports.run = async (bot, message, args) => {
         .addField('User - ', user.tag)
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', reason);
-        message.reply(user.tag + "has been banned.")
-        message.channel.sendEmbed(embed).then(message => message.delete(60000));
         modlogs.send({embed: embed}).catch(e => require("../utils/error.js").error(bot, e));
         user.send(`You have been banned by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
         message.guild.member(user).ban().catch(e => require("../utils/error.js").error(bot, e));

@@ -1,16 +1,17 @@
-const { RichEmbed } = require('discord.js');
+const Discord = require('discord.js');
 
 
 module.exports.run = async (bot, message, args) => {
-    let embed = new RichEmbed()
+    let embed = new Discord.RichEmbed()
         .setTitle("Drift Information - ")
         .setDescription("Some information about Drift!")
-        .setThumbnail("https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")
+        .setThumbnail("https://cdn.discordapp.com/avatars/417450858024796161/0e4870e7a97dff4a12333eb4d2822ddf.png")
         .setColor("#1bade2")
         .addField("Drift Version - ", "1.0")
+        .addField("Node Version - ", process.version, true)
+        .addField("Discord.js Version - ", Discord.version, true)
         .addField("Drift Bot - ", "A multipurpose Bot that is free but comes with limited permissions compared to Drifter, but still still enough for a Discord Server to be satisfied.")
-        .addField("Drifter Bot - ", "A Premium Bot that users pay to use with more permissions and other benefits on the official discord server.")
-        .addField("Drift Discord Server - ", "[Click to join](https://discord.gg/JYXwCgV), Stay up-to-date with all the updates to Drift!")
+        .addField("Drift Discord Server - ", "[Click to join](https://discord.gg/dErs78w), Stay up-to-date with all the updates to Drift!")
     message.channel.send({embed: embed}).then(message => message.delete(60000));
 }
 

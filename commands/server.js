@@ -1,19 +1,24 @@
-const Discord = require('discord.js');
+const { RichEmbed } = require('discord.js');
 
-module.exports.run = async (bot, message, args) => {
-   let embed = new RichEmbed()
-        .setAuthor(`${message.guild.name}`)
-        .setDescription("This is your Server Information!")
-        .setThumbnail(`${message.guild.iconURL}`)
-        .setColor("#1bade2")
-        .addField("Member Count - ", `${message.guild.memberCount}`)
-        .addField("ID", `${message.guild.id}`)
-        .addField("Roles", `${message.guild.roles.map(g => g.name)}`);
-    message.channel.send({embed: embed}).then(message => message.delete(60000));
-
-
-}
-
+exports.run = (bot, message, args) => {
+	const embed = new RichEmbed()
+		.setTitle(`Drift Server -`)
+		.setColor('#0099ff')
+		.setThumbnail(message.guild.iconURL)
+		.addField("Server Name:", `${message.guild.name}`, true)
+		.addField("Server ID:", `${message.guild.id}`, true)
+		.addField("Server Owner:", `${message.guild.owner}`, true)
+		.addField("Owner ID:", `${message.guild.ownerID}`, true)
+		.addField("Server Creation:", `${message.guild.createdAt}`, true)
+		.addField("Server Region:", `${message.guild.region}`, true)
+		.addField("Server Roles:", `${message.guild.roles.map(r => r).join(" | ")} \ `, true)
+		.addField('Members', `${message.guild.memberCount}`, true)
+		.addField('Humans', `${message.guild.members.filter(member => !member.user.bot).size}`, true)
+		.addField('Bots', `${message.guild.members.filter(member => member.user.bot).size}`, true)
+		.addField("Channels", `${message.guild.channels.map(c => c).join(" | ")} \ `, true)
+		.setFooter('Drift Info -', message.author.avatarURL);
+	message.channel.send(embed);
+};
 module.exports.help = {
     name: "server",
     description:"Read some information about your own server!"

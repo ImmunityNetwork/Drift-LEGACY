@@ -1,10 +1,11 @@
+
 const { RichEmbed } = require('discord.js');
 
 
 module.exports.run = async (bot, message, args) => {
     console.log(args);
     let reason = args.slice(1).join(' ');
-    let user = message.mentions.users.first();
+    let user = message.mentions.members.first() || message.guild.member(args[0]);
     let modlogs = message.guild.channels.find('name', 'mod-logs');
     let muteRole = message.guild.roles.find('name', 'Drift Muted');
     let kickperm = message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS");
@@ -37,7 +38,6 @@ module.exports.run = async (bot, message, args) => {
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', `${reason}`);
         message.guild.member(user).removeRole(muteRole).then(() => {
-          message.channel.send({embed}).then(message => message.delete(60000));
           user.send(`You have been unmuted by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
           modlogs.send({embed}).catch(console.error);
         });
