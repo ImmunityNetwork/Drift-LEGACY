@@ -14,12 +14,23 @@ module.exports.run = async (bot, message, args) => {
         reverse: true
     });
 
+    let config;
+
+config = {
+    columnCount: 1,
+    columns: {
+        0: {
+            alignment: 'center'
+        }
+    }
+};
+
     let possiblebans = bans.map(b => [b.username, b.id])
     possiblebans.unshift(['Users', 'ID'])
 
     const embed = new Discord.RichEmbed()
         .setColor(0xCB5A5E)
-        .addField('Bans', `\`\`\`${table.table(possiblebans)}\`\`\``);
+        .addField('Bans', `${table.table(possiblebans, config)}`);
 
     message.channel.fetchWebhooks().then(webhook => {
         let banListWH = webhook.find("name", "Drift")

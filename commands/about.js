@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Node Version - ", process.version, true)
         .addField("Discord.js Version - ", Discord.version, true)
         .addField("Drift Bot - ", "A multipurpose Bot that is free but comes with limited permissions compared to Drifter, but still still enough for a Discord Server to be satisfied.")
-        .addField("Drift Discord Server - ", "[Click to join](https://discord.gg/JYXwCgV), Stay up-to-date with all the updates to Drift!")
+        .addField("Drift Discord Server - ", "[Click to join](https://discord.gg/dErs78w), Stay up-to-date with all the updates to Drift!")
     message.channel.send({embed: embed}).then(message => message.delete(60000));
 }
 
