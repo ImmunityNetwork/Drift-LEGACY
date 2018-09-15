@@ -8,10 +8,13 @@ module.exports.run = async (bot, message, args) => {
     let mutetime = args[1];
     if(!mutetime) return message.reply("You didn't specify a time!");
     let reason = args.slice(2).join(' ');
-    let mUser = message.mentions.users.first();
-    let modlogs = message.guild.channels.find('name', 'mod-logs');
-    let muteRole = message.guild.roles.find('name', 'Drift Muted');
-    let kickperm = message.channel.permissionsFor(message.member).hasPermission("MANAGE_MESSAGES");
+    let mUser = message.mentions.members.first() || message.guild.member(args[0]);
+    let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
+
+       if (!modlogs) return message.channel.send(`Please make a \`mod-logs\` channel. Which the bot has permission to send messages!`)
+     let muteRole = message.guild.roles.find('name', 'Drift Muted');
+
+      let kickperm = message.channel.permissionsFor(message.member).hasPermission("MANAGE_MESSAGES");
     console.log(reason);
     if(!kickperm) return message.reply("You don't have permmision to do that").then(message => message.delete(5000));
     if(message.mentions.users.size < 1) return message.reply("Please mention a Valid User!").then(message => message.delete(5000));
