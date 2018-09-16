@@ -2,6 +2,7 @@
 const { RichEmbed } = require("discord.js");
 exports.run = (bot, msg) =>
 {
+bot.on("messageDelete",(msg) => {
   if (msg.author.id == bot.user.id) return;
   let modlogs = msg.guild.channels.find(s => s.name === "mod-logs");
 
@@ -21,7 +22,9 @@ exports.run = (bot, msg) =>
     .setAuthor("Drift Moderation - ")
     .setColor(0x00AE86)
     .addField("Action - ", "Message Deletion")
-    .addField("User - ", msg.author.tag);
-  //.addField('Message - ', msg.cleanContent)
+    .addField("User - ", msg.author.tag)
+    .addField('Message - ', msg.content);
   modlogs.send({embed: embed});
+});
 };
+
