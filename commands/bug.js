@@ -7,13 +7,14 @@ module.exports.run = async (bot, message, args) => {
     let embed = new RichEmbed()
     .setTitle("Bug Report")
     .setColor("#1CCAD8")
-    .addField("Reporter:", message.author)
-    .addField("ReporterID", message.author.id)
-    .addField("Bug:", bugm);
+    .setFooter("Reporter: " + message.author.tag + "ReporterID " + message.author.id)
+    .setDescription("Bug:", bugm)
+    .setTimestamp();
     let embed2 = new RichEmbed()
     .setTitle("Thank you for submitting a Bug Report")
     .setDescription("We will look into it ~ Drift Development")
     .setFooter("Drift Bug Report", message.author.avatarURL)
+    .setTimestamp();
 
     bot.channels.get("490973066160111616").send(embed)
     let bugr = await message.channel.send(embed2);
