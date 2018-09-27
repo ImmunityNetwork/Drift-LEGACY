@@ -7,9 +7,9 @@ module.exports.run = async (bot, message, args) => {
     let embed = new RichEmbed()
     .setTitle("Bug Report")
     .setColor("#1CCAD8")
-    .setFooter("Reporter: " + message.author.tag + "ReporterID " + message.author.id)
     .setDescription("Bug:", bugm)
-    .setTimestamp();
+    .setTimestamp()
+    .setFooter("Reporter: " + message.author.tag + "ReporterID " + message.author.id);
     let embed2 = new RichEmbed()
     .setTitle("Thank you for submitting a Bug Report")
     .setDescription("We will look into it ~ Drift Development")
