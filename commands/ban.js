@@ -40,7 +40,7 @@ module.exports.run = async (bot, message, args) => {
         .addField('Reason - ', reason);
         modlogs.send({embed: embed}).catch(e => require("../utils/error.js").error(bot, e));
         user.send(`You have been banned by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
-        message.guild.member(user).ban().catch(e => require("../utils/error.js").error(bot, e));
+        message.guild.member(user).ban({days: 1}).catch(e => require("../utils/error.js").error(bot, e));
     }
 
 }
