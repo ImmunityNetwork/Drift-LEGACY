@@ -51,7 +51,7 @@ module.exports.run = async (bot, message, args) => {
         .setFooter('Drift Ban -', message.author.avatarURL)
         modlogs.send({embed: embed}).catch(e => require("../utils/error.js").error(bot, e));
         buser.send(`You have been banned by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
-        message.guild.member(buser).ban().catch(e => require("../utils/error.js").error(bot, e));
+        message.guild.member(buser).ban({days: 1}).catch(e => require("../utils/error.js").error(bot, e));
         setTimeout(function(){
             message.guild.unban(buser.id);
             buser.send(`You have been unbanned`);
