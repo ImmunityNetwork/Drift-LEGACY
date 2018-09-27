@@ -14,7 +14,7 @@
     "enmap": "^4.0.0",
     "enmap-level": "^1.0.0",
     "erlpack": "github:hammerandchisel/erlpack",
-    "fs": "0.0.1-security",
+    "fs": "0.0.2",
     "get-youtube-id": "^1.0.0",
     "hoek": "^5.0.3",
     "idiotic-api": "^0.2.11",
