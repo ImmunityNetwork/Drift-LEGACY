@@ -32,7 +32,7 @@ module.exports.run = async(bot, message, args) => {
            return message.reply(`I have no power to ban them from the server at this time.`).then(message => message.delete(60000));
        } else {
            const embed = new RichEmbed()
-           .setTitle('')
+           .setTitle('Softban')
            .setAuthor('Drift Moderation -', message.author.avatarURL)
            .setColor(0x00AE86)
            .addField('Action - ', 'Ban')
