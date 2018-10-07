@@ -2,6 +2,7 @@ const { RichEmbed } = require('discord.js');
 
 exports.run = (bot, message, args) => {
 	const embed = new RichEmbed()
+	.setAuthor('Drift General -', message.author.avatarURL)
 		.setTitle(`Drift Server -`)
 		.setColor('#0099ff')
 		.setThumbnail(message.guild.iconURL)
