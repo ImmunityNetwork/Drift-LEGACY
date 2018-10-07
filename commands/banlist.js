@@ -1,50 +1,51 @@
-const Discord = require('discord.js');
-const arraySort = require('array-sort');
-const table = require('table');
-
+const { RichEmbed } = require('discord.js');
 module.exports.run = async (bot, message, args) => {
+    message.delete();
+ let reason = args.slice(1).join(' ');
+  let user = message.mentions.members.first() || message.guild.member(args[0]);
+  let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
+    	    
+    let banperm = message.member.permissions.has("BAN_MEMBERS")
+    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
+    if(message.mentions.users.size < 1) return message.reply("You must mention someone to ban them.").then(message => message.delete(60000));
 
-    let bans = await message.guild.fetchBans().catch(error => {
-        return message.channel.send('Sorry, I don\'t have the proper permissions to view bans!');
-    });
+    if(!message.guild.member(bot.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(5000));
 
-    bans = bans.array();
-    
-    arraySort(bans, 'size', {
-        reverse: true
-    });
-
-    let config;
-
-config = {
-    columnCount: 1,
-    columns: {
-        0: {
-            alignment: 'center'
+    if(!modlogs) {
+        try{
+            modlogs = await message.guild.createChannel(
+                `mod-logs`,
+                `text`);
+            message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.")
+        }catch(e){
+            require("../utils/error.js").error(bot, e);
         }
     }
-};
 
-    let possiblebans = bans.map(b => [b.username, b.id])
-    possiblebans.unshift(['Users', 'ID'])
+    if(!reason) {
+        reason = "General Misconduct."
+    }
 
-    const embed = new Discord.RichEmbed()
-        .setColor(0xCB5A5E)
-        .addField('Bans', `${table.table(possiblebans, config)}`);
 
-    message.channel.fetchWebhooks().then(webhook => {
-        let banListWH = webhook.find("name", "Drift")
+    if(!message.guild.member(user).bannable){
+        return message.reply(`I have no power to ban them from the server at this time.`).then(message => message.delete(60000));
+    } else {
+        const embed = new RichEmbed()
+        .setTitle('Ban Report')
+        .setAuthor('Drift Moderation -', message.author.avatarURL)
+        .setColor(0x00AE86)
+        .addField('Action - ', 'Ban')
+        .addField('User - ', user.tag)
+        .addField('Moderator - ', message.author.tag)
+        .addField('Reason - ', reason);
+        modlogs.send({embed: embed}).catch(e => require("../utils/error.js").error(bot, e));
+        user.send(`You have been banned by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
+        message.guild.member(user).ban({days: 1}).catch(e => require("../utils/error.js").error(bot, e));
+    }
 
-        if(!banListWH) {
-            message.channel.createWebhook("Drift", "https://cdn.discordapp.com/avatars/417450858024796161/0e4870e7a97dff4a12333eb4d2822ddf.png")
-            webhook.send(embed)
-        }
-
-        banListWH.send(embed);
-
-    })    
-};
+}
 
 module.exports.help = {
-    name: "banlist"
+    name: "ban",
+    description:"Invoke the great power of the BAN HAMMER on someone."
 }
