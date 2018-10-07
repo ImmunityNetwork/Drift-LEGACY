@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, args) => {
     }
 
     const embed = new RichEmbed()
-    .setTitle('')
+    .setTitle('Warn Report')
     .setAuthor('Drift Moderation -', message.author.avatarURL)
     .setColor("#ed5136")
     .addField('Action - ', 'Warning')
