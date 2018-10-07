@@ -8,6 +8,7 @@ module.exports.run = (bot, message, args) => {
         const entries = result.entries
         let embed = new RichEmbed()
         .setTitle(`Drift Urban -`, message.author.avatarURL)
+        .setAuthor('Drift Miscellaneous -', message.author.avatarURL)
         .setColor("#FCA17D")
         .addField("Word:", `${udSearch}`, true)
         .addField("Author:", `${entries[0].author}`, true)
