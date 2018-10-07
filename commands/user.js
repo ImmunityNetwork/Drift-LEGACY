@@ -3,7 +3,8 @@ const { RichEmbed } = require('discord.js');
 
 module.exports.run = async (bot, message, args) => {
     let embed = new RichEmbed()
-        .setAuthor(message.author.username)
+        .setTitle(User)
+        .setAuthor('Drift General -', message.author.avatarURL)
         .setDescription("This is your User Information!")
         .setThumbnail(message.author.avatarURL)
         .setColor("#1bade2")
