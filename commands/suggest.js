@@ -1,30 +1,27 @@
 const { RichEmbed } = require("discord.js");
 
-module.exports.run = async (bot, message, args) => {
-  return message.reply("This command is currently disabled while being fixed.");
-  /*if (args.length < 1) return msg.channel.send("You need to provide a suggestion!");
-  args = args.join(' ');
-  // Suggestion Feedback log channel
-  //Main Server
-  let slog = bot.channels.get("484461009323556864");
-  //Staff Server
-  let slog2 = bot.channels.get("486364513101283343");
+module.exports.run = async(bot, message, args) => {
+  message.delete();
+  args2 = args.join(" ");
+  if (args2.length < 1) return message.channel.send("You need to provide something to say (Abuse of this command may result in punishment)");
+
+  let cs2 = bot.channels.get("486364513101283343");
 
   const embed = new RichEmbed()
-    .setTitle('New Suggestion!')
-    .setColor("#1bade2")
-    .setTimestamp()
+    .setTitle("Suggestion")
     .setFooter("Sent by " + message.author.tag)
-    .setDescription(args);
-  slog.send({
-    embed
-  })
-  slog2.send({
-    embed
-  }).then( msg => {
-    msg.react('👍').then(msg.react('👎'));
-
-  })*/
+    .setTimestamp()
+    .setColor("#1bade2")
+    .setDescription(args2);
+  const embed1 = new RichEmbed()
+  .setAuthor('Drift General -', message.author.avatarURL)
+  .setTitle("Suggestion")
+  .setDescription("**Thank you for the Suggestion! We will try to add it but no promises.**");
+  let cs3 = await cs2.send(embed);
+  cs3.react("👍")
+  cs3.react("👎")  
+  let ps = await message.channel.send(embed1);
+  ps.delete(3000)
 };
 
 module.exports.help = {
