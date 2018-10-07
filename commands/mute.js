@@ -38,14 +38,14 @@ module.exports.run = async (bot, message, args) => {
 
     if(user.roles.has(muteRole)) {
         const embed2 = new RichEmbed()
-        .setTitle('')
+        .setTitle('Mute Report')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
         .addField('User - ', `${user.user.tag} is already muted!`);
        return message.channel.send(embed2).then(message => message.delete(3500)).catch(e => require("../utils/error.js").error(bot, e));
     }else{
         const embed = new RichEmbed()
-        .setTitle('')
+        .setTitle('Mute Report')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
         .addField('Action - ', 'Mute')
