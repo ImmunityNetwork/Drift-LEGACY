@@ -3,6 +3,7 @@ module.exports.run = async (bot, message, args) => {
   let mockm = await bot.API.mock(args.join(" "));
 
   const embed = new RichEmbed()
+    .setAuthor('Drift Miscellaneous -', message.author.avatarURL)
     .setTitle("Mocked")
     .setColor("#1bade2")
     .setImage("https://i.imgur.com/B8s1txO.jpg")
