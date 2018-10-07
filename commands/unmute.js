@@ -1,4 +1,3 @@
-
 const { RichEmbed } = require('discord.js');
 
 
@@ -23,14 +22,14 @@ module.exports.run = async (bot, message, args) => {
 
     if(!message.guild.member(user).roles.has(muteRole.id)) {
         const embed2 = new RichEmbed()
-        .setTitle('')
+        .setTitle('Unmute Report')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
         .addField('User - ', `${user.tag} is not muted!`);
         message.channel.send({embed2}).then(message => message.delete(60000));
     }else{
         const embed = new RichEmbed()
-        .setTitle('')
+        .setTitle('Unmute Report')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
         .addField('Action - ', 'Unmute')

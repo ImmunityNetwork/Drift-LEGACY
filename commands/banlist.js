@@ -29,9 +29,10 @@ config = {
     possiblebans.unshift(['Users', 'ID'])
 
     const embed = new Discord.RichEmbed()
+    .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0xCB5A5E)
-        .addField('Bans', `${table.table(possiblebans, config)}`);
-
+        .addField('Bans', `\`\`\`${table.table(possiblebans, config)}\`\`\``);
+        // message.channel.send(embed);
     message.channel.fetchWebhooks().then(webhook => {
         let banListWH = webhook.find("name", "Drift")
 
@@ -40,9 +41,11 @@ config = {
             webhook.send(embed)
         }
 
-        banListWH.send(embed);
+        banListWH.send(embed); 
 
-    })    
+    }).catch(error => {
+        return message.channel.send('Sorry, I don\'t have the proper permissions to view bans!');
+    });    
 };
 
 module.exports.help = {

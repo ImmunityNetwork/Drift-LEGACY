@@ -7,6 +7,7 @@ module.exports.run = async (bot, message, args) => {
     if (!timer) return;
 
     let timers = new RichEmbed()
+    .setAuthor('Drift Miscellaneous -', message.author.avatarURL)
     .setTitle("Drift Reminder -")
     .setColor('#0099ff')
     .addField("Message", `${timer[1]}`)
