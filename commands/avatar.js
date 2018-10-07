@@ -4,6 +4,8 @@ module.exports.run = async (bot, message, args) => {
     let uA = message.mentions.users.first() || message.author;
 
     let embed = new RichEmbed()
+    .setAuthor('Drift Miscellaneous -', message.author.avatarURL)
+    .setTitle("Avatar")
     .setColor("#1bade2")
     .setDescription(`**<@${uA.id}>'s avatar**`)
     .setTimestamp()
