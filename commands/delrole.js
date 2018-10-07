@@ -1,16 +1,28 @@
-const { RichEmbed } = require('discord.js');
+const {RichEmbed} = require("discord.js")
 module.exports.run = async (bot, message, args) => {
-    message.delete();
- let reason = args.slice(1).join(' ');
-  let user = message.mentions.members.first() || message.guild.member(args[0]);
-  let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
-    	    
-    let banperm = message.member.permissions.has("BAN_MEMBERS")
-    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
-    if(message.mentions.users.size < 1) return message.reply("You must mention someone to ban them.").then(message => message.delete(60000));
+let rolen = args.slice(1).join(' ');
+if(!rolen) return message.channel.send("Provide a role to add")
+    let user = message.mentions.members.first() || message.guild.member(args[0]);
+    let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
+    if (!modlogs) return message.channel.send(`Please make a \`mod-logs\` channel. Which the bot has permission to send messages!`)
 
-    if(!message.guild.member(bot.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(5000));
-
+    let role = message.guild.roles.find(r => r.name === rolen);
+    let addPerm = message.member.hasPermission("MANAGE_ROLES");
+    if(!addPerm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
+    if(!user) return message.reply("You must mention someone to mute them.").then(message => message.delete(5000));
+    if(!role) return nessage.channel.send("No Role exists");
+        const embed = new RichEmbed()
+        .setTitle('Delrole')
+        .setAuthor('Drift Moderation -', message.author.avatarURL)
+        .setColor(0x00AE86)
+        .addField('User - ', user.user.tag)
+        .addField('Moderator - ', message.author.tag)
+        .addField('Role - ', role);
+    user.removeRole(role).then(() => {
+        message.channel.send(embed).then(message => message.delete(3500));
+        user.send(`Your role \`${rolen}\`, has been taken by ${message.author.tag}.`).catch(e => require("../utils/error.js").error(bot, e));
+        message.guild.channels.find( c=> c.id === `${modlogs.id}`).send({embed}).catch(e => require("../utils/error.js").error(bot, e));
+    });
     if(!modlogs) {
         try{
             modlogs = await message.guild.createChannel(
@@ -18,34 +30,10 @@ module.exports.run = async (bot, message, args) => {
                 `text`);
             message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.")
         }catch(e){
-            require("../utils/error.js").error(bot, e);
+          require("../utils/error.js").error(bot, e);
         }
     }
-
-    if(!reason) {
-        reason = "General Misconduct."
-    }
-
-
-    if(!message.guild.member(user).bannable){
-        return message.reply(`I have no power to ban them from the server at this time.`).then(message => message.delete(60000));
-    } else {
-        const embed = new RichEmbed()
-        .setTitle('Ban Report')
-        .setAuthor('Drift Moderation -', message.author.avatarURL)
-        .setColor(0x00AE86)
-        .addField('Action - ', 'Ban')
-        .addField('User - ', user.tag)
-        .addField('Moderator - ', message.author.tag)
-        .addField('Reason - ', reason);
-        modlogs.send({embed: embed}).catch(e => require("../utils/error.js").error(bot, e));
-        user.send(`You have been banned by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
-        message.guild.member(user).ban({days: 1}).catch(e => require("../utils/error.js").error(bot, e));
-    }
-
 }
-
 module.exports.help = {
-    name: "ban",
-    description:"Invoke the great power of the BAN HAMMER on someone."
+    name: "delrole"
 }
