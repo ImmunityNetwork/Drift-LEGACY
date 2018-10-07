@@ -3,7 +3,8 @@ const Discord = require('discord.js');
 
 module.exports.run = async (bot, message, args) => {
     let embed = new Discord.RichEmbed()
-        .setTitle("Drift Information - ")
+        .setAuthor('Drift General -', message.author.avatarURL)
+        .setTitle("About")
         .setDescription("Some information about Drift!")
         .setThumbnail("https://cdn.discordapp.com/avatars/417450858024796161/0e4870e7a97dff4a12333eb4d2822ddf.png")
         .setColor("#1bade2")
