@@ -23,6 +23,7 @@ getPackageInfo(descInfo.name).then(function(contents) {
 let data = JSON.stringify(contents.dependencies, null, 2);
 const embed = new RichEmbed()
 .setColor(0xCB3837)
+.setAuthor('Drift Miscellaneous -', message.author.avatarURL)
 .setTitle(`${descInfo.name} - npmjs Package Information`)
 .setThumbnail('https://i.imgur.com/8DKwbhj.png')
 .addField(`Description`, `${descInfo.description || 'No description.'}`)
