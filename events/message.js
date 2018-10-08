@@ -1,4 +1,4 @@
-\const botSettings = require("../botsettings.json");
+const botSettings = require("../botsettings.json");
 const prefix = botSettings.prefix;
 exports.run = async (bot, message) => {
     if(message.content === botSettings.token){
