@@ -6,10 +6,16 @@ module.exports.run = async (bot, message, args) => {
   let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
     	    
     let banperm = message.member.permissions.has("BAN_MEMBERS")
-    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
-    if(message.mentions.users.size < 1) return message.reply("You must mention someone to ban them.").then(message => message.delete(60000));
-
-    if(!message.guild.member(bot.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(5000));
+    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
+    let embed2 = new RichEmbed()
+    .setTitle("Incorrect Usage")
+    .setAuthor("Ban Command")
+    .setColor("#BA1B1D")
+    .addField("Correct Usage", "```dr!ban @user *reason*```")
+    .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
+    if(message.mentions.users.size < 1) return message.channel.send(embed2).then(message => message.delete(10000));
+    // if(args < 1) return message.channel.send(embed2).then(message => message.delete(10000));
+    if(!message.guild.member(bot.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command. Recommended ADMINISTRATOR.').then(message => message.delete(5000));
 
     if(!modlogs) {
         try{
@@ -28,12 +34,12 @@ module.exports.run = async (bot, message, args) => {
 
 
     if(!message.guild.member(user).bannable){
-        return message.reply(`I have no power to ban them from the server at this time.`).then(message => message.delete(60000));
+        return message.reply(`They are not bannable at this current moment.`).then(message => message.delete(5000));
     } else {
         const embed = new RichEmbed()
         .setTitle('Ban Report')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
-        .setColor(0x00AE86)
+        .setColor("#BA1B1D")
         .addField('Action - ', 'Ban')
         .addField('User - ', user.tag)
         .addField('Moderator - ', message.author.tag)

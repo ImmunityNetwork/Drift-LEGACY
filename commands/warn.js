@@ -6,8 +6,14 @@ module.exports.run = async (bot, message, args) => {
     let user = message.mentions.members.first() || message.guild.member(args[0]);
     let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
     let kickperm = message.member.permissions.has("MANAGE_MESSAGES");
-    if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
-    if(message.mentions.users.size < 1)  return message.reply("you must mention someone or provide an id to warn them. (Logic at its finest.)").catch(e => require("../utils/error.js").error(bot, e));
+    if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(10000));
+    let embed2 = new RichEmbed()
+    .setTitle("Incorrect Usage")
+    .setAuthor("Warn Command")
+    .setColor("#BA1B1D")
+    .addField("Correct Usage", "```dr!warn @user *reason*```")
+    .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
+    if(message.mentions.users.size < 1)  return message.channel.send(embed2).catch(e => require("../utils/error.js").error(bot, e));
     // if(message.mentions.users.size < 1) return message.reply("you must mention someone or provide an id to warn them. (Logic at its finest.)").catch(e => require("../utils/error.js").error(bot, e));
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");

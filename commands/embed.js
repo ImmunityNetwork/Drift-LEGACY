@@ -1,17 +1,26 @@
-const { RichEmbed } = require('discord.js');
+const {RichEmbed} = require("discord.js");
 
-module.exports.run = async (bot, msg, args) => {
-
-  msg.delete();
-  const embed = new RichEmbed()
-    .setAuthor('Drift Miscellaneous -', message.author.avatarURL)
-    .setTitle("Embed")
-    .addField(`${msg.author.tag} - `, args.join(" "))
-    .setColor("#1bade2");
-  msg.channel.send({embed: embed}).catch(e => require('../utils/error.js').error(bot, e));
-};
+module.exports.run = async (bot, message, args) => {
+    message.delete();
+    es = args.join(" ");
+    // if (args2.length < 1) return message.channel.send("You need to provide something to say (Abuse of this command may result in punishment)");
+    let embed3 = new RichEmbed()
+    .setTitle("Incorrect Usage")
+    .setAuthor("Embed Command")
+    .setColor("#BA1B1D")
+    .addField("Correct Usage", "```dr!embed <message>```")
+    .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
+    if(args < 1) return message.channel.send(embed3).then(message => message.delete(10000));
+    let embed = new RichEmbed()
+    .setAuthor('Drift Moderation -', message.author.avatarURL)
+    .setTitle(`Embed`)
+    .setColor("#1CCAD8")
+    .setDescription(es)
+    .setTimestamp()
+    .setFooter(message.author.tag)
+    message.channel.send(embed);
+}
 
 module.exports.help = {
-  name: 'embed',
-  description:"Announce something as an embed!"
-};
+    name: "embed"
+}

@@ -6,8 +6,14 @@ module.exports.run = async (bot, message, args) => {
     let user = args[0];
     let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
     let banperm = message.channel.permissionsFor(message.member).hasPermission("BAN_MEMBERS");
-    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
-    if(!user) return message.reply("You must use an id of someone to unban them. (Logic at its finest, hopefully.)").then(message => message.delete(60000));
+    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(10000));
+    let embed2 = new RichEmbed()
+    .setTitle("Incorrect Usage")
+    .setAuthor("Unban Command")
+    .setColor("#BA1B1D")
+    .addField("Correct Usage", "```dr!unban <userid> *reason*```")
+    .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
+    if(!user) return message.channel.send(embed2).then(message => message.delete(10000));
 
     if(!modlogs) {
         try{

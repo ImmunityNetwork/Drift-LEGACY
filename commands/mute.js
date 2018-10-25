@@ -10,7 +10,13 @@ module.exports.run = async (bot, message, args) => {
     let muteRole = message.guild.roles.find(r => r.name === 'Drift Muted');
     let kickperm = message.member.hasPermission("KICK_MEMBERS");
     if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
-    if(!user) return message.reply("You must mention someone to mute them.").then(message => message.delete(5000));
+    let embed2 = new RichEmbed()
+    .setTitle("Incorrect Usage")
+    .setAuthor("Mute Command")
+    .setColor("#BA1B1D")
+    .addField("Correct Usage", "```dr!mute @user *reason*```")
+    .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
+    if(message.mentions.users.size < 1) return message.channel.send(embed2).then(message => message.delete(10000));
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");
 

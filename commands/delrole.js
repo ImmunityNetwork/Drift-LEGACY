@@ -1,28 +1,30 @@
 const {RichEmbed} = require("discord.js")
 module.exports.run = async (bot, message, args) => {
-let rolen = args.slice(1).join(' ');
-if(!rolen) return message.channel.send("Provide a role to add")
-    let user = message.mentions.members.first() || message.guild.member(args[0]);
+    message.delete();
+    if(!message.guild.member(bot.user).hasPermission('MANAGE_ROLES')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command. Recommended ADMINISTRATOR.').then(message => message.delete(5000));
+let rolen = args.join(" ");
+let embed3 = new RichEmbed()
+    .setTitle("Incorrect Usage")
+    .setAuthor("Delrole Command")
+    .setColor("#BA1B1D")
+    .addField("Correct Usage", "```dr!delrole roleID```")
+    .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
+    if(args < 1) return message.channel.send(embed3).then(message => message.delete(10000));
+    let role = message.guild.roles.find(r => r.id === rolen);
+    if(!role) return message.channel.send(embed3).then(message => message.delete(10000));
     let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
     if (!modlogs) return message.channel.send(`Please make a \`mod-logs\` channel. Which the bot has permission to send messages!`)
-
-    let role = message.guild.roles.find(r => r.name === rolen);
     let addPerm = message.member.hasPermission("MANAGE_ROLES");
     if(!addPerm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
-    if(!user) return message.reply("You must mention someone to mute them.").then(message => message.delete(5000));
-    if(!role) return nessage.channel.send("No Role exists");
         const embed = new RichEmbed()
         .setTitle('Delrole')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
-        .addField('User - ', user.user.tag)
         .addField('Moderator - ', message.author.tag)
-        .addField('Role - ', role);
-    user.removeRole(role).then(() => {
-        message.channel.send(embed).then(message => message.delete(3500));
-        user.send(`Your role \`${rolen}\`, has been taken by ${message.author.tag}.`).catch(e => require("../utils/error.js").error(bot, e));
+        .addField('Role - ', role.name)
+        .addField('RoleID - ', rolen);
+        role.delete();
         message.guild.channels.find( c=> c.id === `${modlogs.id}`).send({embed}).catch(e => require("../utils/error.js").error(bot, e));
-    });
     if(!modlogs) {
         try{
             modlogs = await message.guild.createChannel(

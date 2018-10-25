@@ -1,7 +1,7 @@
 const botsettings = require("../botsettings.json")
-exports.run = (bot,message) =>
+exports.run = async (bot,message) =>
 {
   console.log(`\n\n${bot.user.username} is at your service.`);
-  console.log("\n\nReady to begin! Serving in " + bot.guilds.size + " guilds.\n\n");
-  bot.user.setPresence({ status: "online", game: { name: "in " + bot.guilds.size + " servers. || " + botsettings.prefix + "help" } });
+  console.log("\n\nReady to begin! Serving " + bot.guilds.size + " guilds.\n\n");
+  bot.user.setPresence({ status: "online", game: {name: `${bot.users.size.toLocaleString()} users || ${botsettings.prefix}help`}}); 
 };

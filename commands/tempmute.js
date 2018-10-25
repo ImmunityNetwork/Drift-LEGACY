@@ -17,7 +17,13 @@ module.exports.run = async (bot, message, args) => {
       let kickperm = message.channel.permissionsFor(message.member).hasPermission("MANAGE_MESSAGES");
     console.log(reason);
     if(!kickperm) return message.reply("You don't have permmision to do that").then(message => message.delete(5000));
-    if(message.mentions.users.size < 1) return message.reply("Please mention a Valid User!").then(message => message.delete(5000));
+    let embed2 = new RichEmbed()
+    .setTitle("Incorrect Usage")
+    .setAuthor("Tempmute Command")
+    .setColor("#BA1B1D")
+    .addField("Correct Usage", "```dr!tempmute @user time *reason*```")
+    .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
+    if(message.mentions.users.size < 1) return message.channel.send(embed2).then(message => message.delete(5000));
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");
 

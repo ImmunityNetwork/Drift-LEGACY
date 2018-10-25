@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) => {
     .addField("Success!", "You have added your self a nickname!")
     .addField("Nickname", nick);
     let tm = await message.channel.send(nicke);
-    tm.delete(3000)
+    tm.delete(10000)
 }
 
 
