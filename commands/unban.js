@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
     if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(10000));
     let embed2 = new RichEmbed()
     .setTitle("Incorrect Usage")
-    .setAuthor("Mute Command")
+    .setAuthor("Unban Command")
     .setColor("#BA1B1D")
     .addField("Correct Usage", "```dr!unban <userid> *reason*```")
     .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
