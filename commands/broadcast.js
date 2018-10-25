@@ -1,35 +1,26 @@
-const {RichEmbed} = require("discord.js");
-
+const { RichEmbed } = require('discord.js'); 
 module.exports.run = async (bot, message, args) => {
-    message.delete();
-    let bugm;
-    bugm = args.join(" ");
-    // if (args2.length < 1) return message.channel.send("You need to provide something to say (Abuse of this command may result in punishment)");
-    let embed3 = new RichEmbed()
-    .setTitle("Incorrect Usage")
-    .setAuthor("Bug Command")
-    .setColor("#BA1B1D")
-    .addField("Correct Usage", "```dr!bug <message>```")
-    .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
-    if(args < 1) return message.channel.send(embed3).then(message => message.delete(10000));
-    let embed = new RichEmbed()
-    .setAuthor('Drift Moderation -', message.author.avatarURL)
-    .setTitle("Bug Report")
-    .setColor("#1CCAD8")
-    .setDescription(`Bug: ${bugm}`)
-    .setTimestamp()
-    .setFooter("Reporter: " + message.author.tag + " ReporterID " + message.author.id);
-    let embed2 = new RichEmbed()
-    .setTitle("Thank you for submitting a Bug Report")
-    .setDescription("We will look into it ~ Drift Development")
-    .setFooter("Drift Bug Report", message.author.avatarURL)
-    .setTimestamp();
-
-    bot.channels.get("490973066160111616").send(embed)
-    let bugr = await message.channel.send(embed2);
-    bugr.delete(8000)
+  let br = args.slice(0).join(' ');
+  let userid = message.author.id;
+let developers = [
+"203516441683558400",
+"236975433176842240",
+"328580491290607616",
+"322643069730029569",
+"240310996390903808",
+"283739077507809288",
+"483363661285687317"
+]; 
+    if(developers.includes(userid)==false) return message.channel.send("You do not have access to this command!");
+ 
+ let guildList = bot.guilds.array();
+        try {
+         guildList.forEach(guild => guild.channels.get(guild.channels.find('name', 'bot-status').id).send(`${br}`));
+        } catch (err) {
+            console.log("Could not send message to " + bot.guild.name);
+        }
 }
-
 module.exports.help = {
-    name: "bug"
+    name: "broadcast"
 }
+  
