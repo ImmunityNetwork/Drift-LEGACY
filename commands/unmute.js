@@ -9,8 +9,14 @@ module.exports.run = async (bot, message, args) => {
     let muteRole = message.guild.roles.find('name', 'Drift Muted');
     let kickperm = message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS");
     console.log(reason);
-    if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(60000));
-    if(message.mentions.users.size < 1) return message.reply("you must mention someone to unmute them. (Logic at its finest.)").then(message => message.delete(600000));
+    if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(10000));
+    let embed2 = new RichEmbed()
+    .setTitle("Incorrect Usage")
+    .setAuthor("Unmute Command")
+    .setColor("#BA1B1D")
+    .addField("Correct Usage", "```dr!unmute @user *reason*```")
+    .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
+    if(message.mentions.users.size < 1) return message.channel.send(embed2).then(message => message.delete(600000));
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");
 
