@@ -1,30 +1,25 @@
-
 const { RichEmbed } = require("discord.js");
-exports.run = (bot, msg) =>
+exports.run = async(bot, message) =>
 {
-bot.on("messageDelete",(msg) => {
-  if (msg.author.id == bot.user.id) return;
-  let modlogs = msg.guild.channels.find(s => s.name === "mod-logs");
-
+  if (message.author.id == bot.user.id) return;
+  let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
   if(!modlogs) {
     try{
-      modlogs = msg.guild.createChannel(
-        "mod-logs",
-        "text");
+      modlogs = await message.guild.createChannel("mod-logs", "text");
       //TODO Fix this.
-      //message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.");
+      message.reply("Please set up the permissions for #mod-logs according to your needs manually. Automatic setup of #mod-logs will come shortly. Thanks for your cooperation.");
     }catch(e){
       require("../utils/error.js").error(bot, e)
     }
   }
   const embed = new RichEmbed()
-    .setTitle("")
+    .setTitle("Message Deleted")
     .setAuthor("Drift Moderation - ")
     .setColor(0x00AE86)
     .addField("Action - ", "Message Deletion")
-    .addField("User - ", msg.author.tag)
-    .addField('Message - ', msg.content);
-  modlogs.send({embed: embed});
-});
+    .addField("User - ", `${message.author.tag}`)
+    .addField('Message - ', `${message.content}`);
+  modlogs.send(embed);
+
 };
 
