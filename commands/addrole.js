@@ -1,37 +1,49 @@
 const {RichEmbed} = require("discord.js")
+const color = require("color");
+const convert = require('color-convert');
+const toHex = require('colornames')
 module.exports.run = async (bot, message, args) => {
-let rolen = args.slice(1).join(' ');
-if(!rolen) return message.channel.send("Provide a role to add")
-    let user = message.mentions.members.first() || message.guild.member(args[0]);
+    message.delete()
+    if(!message.guild.member(bot.user).hasPermission('MANAGE_ROLES')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command. Recommended ADMINISTRATOR.').then(message => message.delete(5000));
+let rolen = args.slice(0, 1).join(" ");
+let embed3 = new RichEmbed()
+    .setTitle("Incorrect Usage")
+    .setAuthor("Addrole Command")
+    .setColor("#BA1B1D")
+    .addField("Correct Usage", "```dr!addrole role color *true*```")
+    .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL. Sorry Hoisting is under developement, after the new update you will be able to choose. Join our discord at `dr!about` for updates! ~~In this case True means it will be on Discord Hoist. That is the bar that you look at when opened the members list. If added true it will show the role on there~~");
+if(args < 1) return message.channel.send(embed3).then(message => message.delete(10000));
+let colorn = args.slice(1, 2).join(" ");
+// if(!colorn) return colorn = "#000000"; STAY
+    let role = message.guild.roles.find(r => r.name === rolen);
+    // let hoistn = args.slice(1, 2);
+    // if(!hoistn) return hoistn = "false";
+    // if(!hoistn === "true") return;
     let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
     if (!modlogs) return message.channel.send(`Please make a \`mod-logs\` channel. Which the bot has permission to send messages!`)
-
-    let role = message.guild.roles.find(r => r.name === rolen);
     let addPerm = message.member.hasPermission("MANAGE_ROLES");
     if(!addPerm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
-    if(!user) return message.reply("You must mention someone to mute them.").then(message => message.delete(5000));
-    if(!role) return nessage.channel.send("No Role exists");
-    if(user.roles.has(role)) {
-        const embed2 = new RichEmbed()
-        .setTitle('Addrole')
-        .setAuthor('Drift Moderation -', message.author.avatarURL)
-        .setColor(0x00AE86)
-        .addField('User - ', `${user.user.tag} is already has the role!`);
-       return message.channel.send(embed2).then(message => message.delete(3500)).catch(e => require("../utils/error.js").error(bot, e));
-    }else{
+    if(!role) {
+        try{
+            role = await message.guild.createRole({
+                name: `${rolen}`,
+                hoist: true
+            });       
+        }catch(e) {
+            require("../utils/error.js").error(bot, e);
+            message.channel.send(embed3);
+        }
+    }
+    // console.log(toHex(colorn) || colorn);
+    role.setColor(toHex(colorn) || colorn || "#979797")
+  .catch(e => require("../utils/error.js").error(bot, e));
         const embed = new RichEmbed()
         .setTitle('Addrole')
         .setAuthor('Drift Moderation -', message.author.avatarURL)
         .setColor(0x00AE86)
-        .addField('User - ', user.user.tag)
         .addField('Moderator - ', message.author.tag)
         .addField('Role - ', role);
-    user.addRole(role).then(() => {
-        message.channel.send(embed).then(message => message.delete(3500));
-        user.send(`You have been given the role \`${rolen}\` by ${message.author.tag}.`).catch(e => require("../utils/error.js").error(bot, e));
         message.guild.channels.find( c=> c.id === `${modlogs.id}`).send({embed}).catch(e => require("../utils/error.js").error(bot, e));
-    });
-    }
     if(!modlogs) {
         try{
             modlogs = await message.guild.createChannel(
