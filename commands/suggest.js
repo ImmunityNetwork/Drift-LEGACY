@@ -21,7 +21,7 @@ module.exports.run = async(bot, message, args) => {
   cs3.react("👍")
   cs3.react("👎")  
   let ps = await message.channel.send(embed1);
-  ps.delete(3000)
+  ps.delete(8000)
 };
 
 module.exports.help = {
