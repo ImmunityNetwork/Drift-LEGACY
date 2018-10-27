@@ -17,7 +17,7 @@ var servers = {}; module.exports.run = (bot, message, args) => {
     }
     
     if(!message.member.voiceChannel) {
-        message.channel.sned("I think it may work better if you are in a voice channel!");
+        message.channel.send("I think it may work better if you are in a voice channel!");
     }
     if(!servers[message.guild.id]) servers[message.guild.id] = {
         queue: []
