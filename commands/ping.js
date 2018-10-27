@@ -5,9 +5,9 @@ module.exports.run = async (bot, message, args) => {
     let embed = new RichEmbed()
     .setAuthor('Drift Miscellaneous -', message.author.avatarURL)
     .setTitle("Ping")
-        .setThumbnail("https://cdn.discordapp.com/attachments/390285194617421835/394940813865385995/FFADA4B0-4EF6-4441-BAE8-C525975E7418.png")
+        .setThumbnail("https://cdn.discordapp.com/avatars/417450858024796161/0e4870e7a97dff4a12333eb4d2822ddf.png")
         .setColor("#1bade2")
-        .setDescription("Ping - ", 'Pong! Drift\'s ping `' + `${Date.now() - message.createdTimestamp}` + ' ms`');
+        .addField("Ping - ", `\`\`\`${bot.ping} ms\`\`\``);
     message.channel.send({embed: embed}).catch(e => require("../utils/error.js").error(bot, e));;
 }
 
