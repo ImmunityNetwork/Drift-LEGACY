@@ -43,7 +43,7 @@
     "urban-dictionary": "^2.2.1",
     "uws": "^99.0.0",
     "youtube-info": "^1.2.1",
-    "ytdl-core": "^0.26.0"
+    "ytdl-core": "^0.27.0"
   },
   "devDependencies": {},
   "scripts": {
