@@ -1,5 +1,5 @@
 const { RichEmbed } = require("discord.js");
-exports.run = async(bot, message) =>
+exports.run = async (bot, message) =>
 {
   if (message.author.id == bot.user.id) return;
   let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
@@ -22,4 +22,3 @@ exports.run = async(bot, message) =>
   modlogs.send(embed);
 
 };
-

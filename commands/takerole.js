@@ -10,6 +10,8 @@ if(!rolen) return message.channel.send("Provide a role to take")
     let role = message.guild.roles.find(r => r.name === rolen);
     let addPerm = message.member.hasPermission("MANAGE_ROLES");
     if(!addPerm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
+    let botAddPerm = message.guild.me.hasPermission("MANAGE_ROLES");
+    if(!botaddPerm) return message.reply("I don't have ther permissions to do that.")
     if(!user) return message.reply("You must mention someone to remove a role from them.").then(message => message.delete(5000));
     if(!role) return nessage.channel.send("No Role exists");
         const embed = new RichEmbed()

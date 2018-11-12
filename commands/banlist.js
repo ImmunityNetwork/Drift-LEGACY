@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
     });
 
     bans = bans.array();
-    
+
     arraySort(bans, 'size', {
         reverse: true
     });
@@ -37,15 +37,15 @@ config = {
         let banListWH = webhook.find("name", "Drift")
 
         if(!banListWH) {
-            message.channel.createWebhook("Drift", "https://cdn.discordapp.com/avatars/417450858024796161/0e4870e7a97dff4a12333eb4d2822ddf.png")
-            webhook.send(embed)
+            message.channel.createWebhook("Drift", "https://cdn.discordapp.com/avatars/417450858024796161/0e4870e7a97dff4a12333eb4d2822ddf.png").catch(e => require("../utils/error.js").error(bot, e))
+            webhook.send(embed).catch(e => require("../utils/error.js").error(bot, e))
         }
 
-        banListWH.send(embed); 
+        banListWH.send(embed).catch(e => require("../utils/error.js").error(bot, e)); 
 
     }).catch(error => {
         return message.channel.send('Sorry, I don\'t have the proper permissions to view bans!');
-    });    
+    });
 };
 
 module.exports.help = {

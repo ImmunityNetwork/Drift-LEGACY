@@ -1,8 +1,7 @@
 const { RichEmbed } = require("discord.js");
 const ms = require("ms")
 module.exports.run = async (bot, message, args) => {
-    let timer = args.join(" ").split(" | ") 
-    console.log(timer)
+    let timer = args.join(" ").split(" | ")
 
     if (!timer) return;
 
@@ -13,9 +12,9 @@ module.exports.run = async (bot, message, args) => {
     .addField("Message", `${timer[1]}`)
     .setFooter('Drift Reminder -', message.author.avatarURL);
 
-    setTimeout(async function() { 
+    setTimeout(async function() {
        let msg = await message.channel.send(`<@${message.author.id}> `);
-       msg.edit({embed: timers})
+       msg.edit({embed: timers}).catch(e => require("../utils/error.js").error(bot, e))
     }, ms(timer[0]))
 }
 

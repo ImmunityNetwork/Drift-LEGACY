@@ -5,6 +5,7 @@ const fs = require('fs');
 const getPackageInfo = require('sb-package-info');
 const sortPackageJson = require("sort-package-json");
 module.exports.run = async (bot, message, args) => {
+    return message.reply("Command currently disabled.")
     let embed3 = new RichEmbed()
     .setTitle("Incorrect Usage")
     .setAuthor("NPM Command")
@@ -15,7 +16,7 @@ if(args < 1) return message.channel.send(embed3).then(message => message.delete(
 const query = args.join(' ');
 const packInfo = await packageJson(query.toLowerCase());
 const descInfo = await npmRequestJson({ name: packInfo.name, version: 'latest' });
- 
+
 // getPackageInfo(descInfo.name).then(function(contents) {
 //     let data = JSON.stringify(contents.dependencies, null, 2);
 //     fs.writeFile("./commands/test.json", data, (err) => {
@@ -23,7 +24,6 @@ const descInfo = await npmRequestJson({ name: packInfo.name, version: 'latest' }
 //     message.channel.send(data);
 // })
 // })
-console.log(descInfo)
 try {
 getPackageInfo(descInfo.name).then(function(contents) {
 let data = JSON.stringify(contents.dependencies, null, 2);
@@ -38,13 +38,13 @@ const embed = new RichEmbed()
 .addField('Author', `${descInfo.author.name} || ${descInfo._npmUser.name}`, true)
 .addField('Installation', `\`npm i ${descInfo.name}\``, true)
 .addField("Dependancies", `${Object.keys(contents.dependencies).join(" | ") || "None"}`, true)
-.addField('NPMjs Package', `https://www.npmjs.com/package/${query.toLowerCase()}`)
+.addField('NPMjs Package', `https://www.npmjs.com/package/${query.toLowerCase()}`);
 
 message.channel.send({embed});
 })
 } catch (error) {
 if(error) return message.channel.send('**Could not find any results.**');
-console.log(error);
+require("../utils/error.js").error(bot, error)
 }
 }
 module.exports.help = {

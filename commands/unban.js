@@ -5,8 +5,10 @@ module.exports.run = async (bot, message, args) => {
     let reason = args.slice(1).join(' ');
     let user = args[0];
     let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
-    let banperm = message.channel.permissionsFor(message.member).hasPermission("BAN_MEMBERS");
-    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(10000));
+    let banperm = message.member.hasPermission("BAN_MEMBERS");
+    let botBanPerm = message.guild.me.hasPermission("BAN_MEMBERS");
+    if (!botBanPerm) return message.reply("I don't have permission to do that.").then(message => message.delete(10000).catch(e => require("../utils/error.js").error(bot, e)));
+    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(10000).catch(e => require("../utils/error.js").error(bot, e)));
     let embed2 = new RichEmbed()
     .setTitle("Incorrect Usage")
     .setAuthor("Unban Command")

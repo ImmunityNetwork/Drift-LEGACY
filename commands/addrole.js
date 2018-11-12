@@ -3,8 +3,8 @@ const color = require("color");
 const convert = require('color-convert');
 const toHex = require('colornames')
 module.exports.run = async (bot, message, args) => {
-    message.delete()
-    if(!message.guild.member(bot.user).hasPermission('MANAGE_ROLES')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command. Recommended ADMINISTRATOR.').then(message => message.delete(5000));
+    message.delete().catch(e => require("../utils/error.js").error(bot, e));
+    if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command. Recommended ADMINISTRATOR.').then(message => message.delete(5000));
 let rolen = args.slice(0, 1).join(" ");
 let embed3 = new RichEmbed()
     .setTitle("Incorrect Usage")
@@ -28,7 +28,7 @@ let colorn = args.slice(1, 2).join(" ");
             role = await message.guild.createRole({
                 name: `${rolen}`,
                 hoist: true
-            });       
+            });
         }catch(e) {
             require("../utils/error.js").error(bot, e);
             message.channel.send(embed3);

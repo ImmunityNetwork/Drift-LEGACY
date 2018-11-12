@@ -2,7 +2,6 @@ const { RichEmbed } = require('discord.js');
 
 
 module.exports.run = async (bot, message, args) => {
-    console.log(args);
 
     let user = message.mentions.users.first() || message.author;
     let randomnumber = Math.floor(Math.random() * 2);

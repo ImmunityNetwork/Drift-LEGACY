@@ -6,9 +6,13 @@ module.exports.run = async (bot, message, args) => {
     let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
     if (!modlogs) return message.channel.send(`Please make a \`mod-logs\` channel. Which the bot has permission to send messages!`)
 
-    let kickperm = message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS");
-    console.log(reason);
-    if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(10000));
+    let kickperm = message.member.hasPermission("KICK_MEMBERS");
+    let kperm = message.guild.me.hasPermission("KICK_MEMBERS");
+    let botPermEmbed = new RichEmbed()
+    .setColor("#BA1B1D")
+    .setDescription("❌I'm missing the permission to kick members")
+    if (!kperm) return message.reply("")
+    if(!kickperm) return message.reply("❌You dont have permmision to do that").then(message => message.delete(10000));
     let embed2 = new RichEmbed()
     .setTitle("Incorrect Usage")
     .setAuthor("Kick Command")
@@ -44,7 +48,7 @@ module.exports.run = async (bot, message, args) => {
         .addField('User - ', user.tag)
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', `${reason}`);
-        message.channel.send({embed}).then(message => message.delete(60000));
+        message.channel.send({embed}).then(message => message.delete(60000).catch(e => require("../utils/error.js").error(bot, e))).catch(e => require("../utils/error.js").error(bot, e));
         modlogs.send({embed}).catch(e => require("../utils/error.js").error(bot, e));
         user.send(`You have been kicked by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));;
         message.guild.member(user).kick().catch(e => require("../utils/error.js").error(bot, e));;

@@ -19,9 +19,9 @@ module.exports.run = async(bot, message, args) => {
   .setDescription("**Thank you for the Suggestion! We will try to add it but no promises.**");
   let cs3 = await cs2.send(embed);
   cs3.react("👍")
-  cs3.react("👎")  
-  let ps = await message.channel.send(embed1);
-  ps.delete(8000)
+  cs3.react("👎")
+  let ps = await message.channel.send(embed1).catch(e => require("../utils/error.js").error(bot, e));
+  ps.delete(8000).catch(e => require("../utils/error.js").error(bot, e))
 };
 
 module.exports.help = {

@@ -18,8 +18,8 @@ module.exports.run = async (bot, message, args) => {
     .addField("= Platform =", `\`${process.platform}\``, true)
     .addField("= Uptime =", `\`${duration}\``, true)
     .addField("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _= Developers =", "**Lead Dev:**                         **Developers:**                       **Jr. Developers:** \n_Spiderlogical#7313_  _Zyphen#8624_                      _Paladin#9878_ \n                                              _HiddenMask#7502_          _Riley#1198_ \n                                              _Freaky-san#1363_              _Synco#0876_ \n                                              _Whimpers#1503_")
-    
-  message.channel.send(embed);
+
+  message.channel.send(embed).catch(e => require("../utils/error.js").error(bot, e));
 }
 module.exports.help = {
   name: "info"

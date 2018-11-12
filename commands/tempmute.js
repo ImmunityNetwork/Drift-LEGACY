@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, args) => {
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");
 
-    if(!message.guild.member(bot.user).hasPermission('MANAGE_ROLES')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(5000));
+    if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(5000));
 
     if(!reason) reason = 'General Misconduct';
 
@@ -91,7 +91,7 @@ module.exports.run = async (bot, message, args) => {
         }
     }
 
-    
+
 
 }
 

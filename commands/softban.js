@@ -5,7 +5,7 @@ module.exports.run = async(bot, message, args) => {
     let reason = args.slice(1).join(' ');
      let user = message.mentions.members.first();
      let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
-               
+
        let banperm = message.member.permissions.has("BAN_MEMBERS")
        if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(10000));
        let embed2 = new RichEmbed()
@@ -15,9 +15,9 @@ module.exports.run = async(bot, message, args) => {
     .addField("Correct Usage", "```dr!softban @user *reason*```")
     .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
        if(message.mentions.users.size < 1) return message.channel.send(embed2).then(message => message.delete(10000));
-   
-       if(!message.guild.member(bot.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(5000));
-   
+
+       if(!message.guild.me.hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(5000));
+
        if(!modlogs) {
            try{
                modlogs = await message.guild.createChannel(
@@ -28,12 +28,12 @@ module.exports.run = async(bot, message, args) => {
                require("../utils/error.js").error(bot, e);
            }
        }
-   
+
        if(!reason) {
            reason = "General Misconduct."
        }
-   
-   
+
+
        if(!message.guild.member(user).bannable){
            return message.reply(`I have no power to ban them from the server at this time.`).then(message => message.delete(60000));
        } else {

@@ -1,6 +1,7 @@
 const { RichEmbed } = require("discord.js");
 const botSettings = require("../botsettings.json")
 module.exports.run = async (bot, message, args) => {
+  //TODO Make this auto load new comamnds!
   const embed = new RichEmbed()
     .setTitle("Drift Help | Prefix " + botSettings.prefix)
     .setColor("#1bade2")
@@ -67,49 +68,49 @@ let help2;
 let help3;
 
    help1 = await message.channel.send(embed);
-    await help1.react("▶");
+    await help1.react("▶").catch(e => require("../utils/error.js").error(bot, e));
 
     await help1.awaitReactions(reaction => reaction.emoji.name === "▶", {max: 2, time: 30000});
     //Start 2
       if(help1.reactions.get("▶").count-1 === 1){
-        help1.clearReactions();
-        help1.edit(embed2)
+        help1.clearReactions().catch(e => require("../utils/error.js").error(bot, e));
+        help1.edit(embed2).catch(e => require("../utils/error.js").error(bot, e))
         .then(() => {
-          help1.react("▶")
+          help1.react("▶").catch(e => require("../utils/error.js").error(bot, e))
         })
       }
 
       await help1.awaitReactions(reaction => reaction.emoji.name === "▶", {max: 2, time: 30000});
 
     if(help1.reactions.get("▶").count-1 === 1){
-      help1.clearReactions();
-        help1.edit(embed3)
+      help1.clearReactions().catch(e => require("../utils/error.js").error(bot, e));
+        help1.edit(embed3).catch(e => require("../utils/error.js").error(bot, e))
         .then(() => {
-          help1.react("◀")
+          help1.react("◀").catch(e => require("../utils/error.js").error(bot, e))
         })
     }
 
     await help1.awaitReactions(reaction => reaction.emoji.name === "◀", {max: 2, time: 30000});
 
     if(help1.reactions.get("◀").count-1 === 1){
-        help1.clearReactions();
-        help1.edit(embed2)
+        help1.clearReactions().catch(e => require("../utils/error.js").error(bot, e));
+        help1.edit(embed2).catch(e => require("../utils/error.js").error(bot, e))
         .then(() => {
-          help1.react("◀")
+          help1.react("◀").catch(e => require("../utils/error.js").error(bot, e))
         })
     }
 
     await help1.awaitReactions(reaction => reaction.emoji.name === "◀", {max: 2, time: 30000});
 
     if(help1.reactions.get("◀").count-1 === 1){
-      help1.clearReactions();
-        help1.edit(embed)
+      help1.clearReactions().catch(e => require("../utils/error.js").error(bot, e));
+        help1.edit(embed).catch(e => require("../utils/error.js").error(bot, e))
         .then(() => {
-          help1.react("▶")
+          help1.react("▶").catch(e => require("../utils/error.js").error(bot, e))
         })
     }
 
-help1.delete(30000);
+help1.delete(30000).catch(e => require("../utils/error.js").error(bot, e));
 
       } catch(err){
         require("../utils/error.js").error(bot, err);

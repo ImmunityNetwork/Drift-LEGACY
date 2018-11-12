@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
     .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
     if(message.mentions.users.size < 1) return message.channel.send(embed2).then(message => message.delete(5000));
 
-    if(!message.guild.member(bot.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(5000));
+    if(!message.guild.me.hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(5000));
 
     if(!modlogs) {
         try{

@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) => {
     if (!modlogs) return message.channel.send(`Please make a \`mod-logs\` channel. Which the bot has permission to send messages!`)
 
     let muteRole = message.guild.roles.find(r => r.name === 'Drift Muted');
-    let kickperm = message.member.hasPermission("KICK_MEMBERS");
+    let kickperm = message.member.hasPermission("MANAGE_MESSAGES");
     if(!kickperm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
     let embed2 = new RichEmbed()
     .setTitle("Incorrect Usage")
@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args) => {
 
 //    if(reason.length < 1) return message.reply("you must provide an explanation for your diciplinary action against another user.");
 
-    if(!message.guild.member(bot.user).hasPermission('MANAGE_ROLES')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(60000));
+    if(!message.guild.me.hasPermission('MANAGE_ROLES')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command.').then(message => message.delete(60000));
 
     if(!reason) reason = 'General Misconduct';
 
@@ -59,7 +59,7 @@ module.exports.run = async (bot, message, args) => {
         .addField('Moderator - ', message.author.tag)
         .addField('Reason - ', reason);
       user.addRole(muteRole).then(() => {
-            message.channel.send(embed).then(message => message.delete(3500));
+            message.channel.send(embed).then(message => message.delete(3500).catch(e => require("../utils/error.js").error(bot, e))).catch(e => require("../utils/error.js").error(bot, e));
             user.send(`You have been muted by ${message.author.tag}, in ${message.guild.name}, due to ${reason}.`).catch(e => require("../utils/error.js").error(bot, e));
             message.guild.channels.find( c=> c.id === `${modlogs.id}`).send({embed}).catch(e => require("../utils/error.js").error(bot, e));
         });

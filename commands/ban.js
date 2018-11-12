@@ -1,21 +1,21 @@
 const { RichEmbed } = require('discord.js');
 module.exports.run = async (bot, message, args) => {
-    message.delete();
+  message.delete().catch(e => require("../utils/error.js").error(bot, e));
  let reason = args.slice(1).join(' ');
   let user = message.mentions.members.first() || message.guild.member(args[0]);
   let modlogs = message.guild.channels.find(c => c.name === 'mod-logs');
-    	    
+
     let banperm = message.member.permissions.has("BAN_MEMBERS")
-    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000));
+    if(!banperm) return message.reply("You dont have permmision to do that").then(message => message.delete(5000).catch(e => require("../utils/error.js").error(bot, e)));
     let embed2 = new RichEmbed()
     .setTitle("Incorrect Usage")
     .setAuthor("Ban Command")
     .setColor("#BA1B1D")
     .addField("Correct Usage", "```dr!ban @user *reason*```")
     .setDescription("If a word is in asterisks/stars, it means it is OPTIONAL.");
-    if(message.mentions.users.size < 1) return message.channel.send(embed2).then(message => message.delete(10000));
+    if(message.mentions.users.size < 1) return message.channel.send(embed2).then(message => message.delete(10000).catch(e => require("../utils/error.js").error(bot, e)));
     // if(args < 1) return message.channel.send(embed2).then(message => message.delete(10000));
-    if(!message.guild.member(bot.user).hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command. Recommended ADMINISTRATOR.').then(message => message.delete(5000));
+    if(!message.guild.me.hasPermission('BAN_MEMBERS')) return message.reply('I do not have the correct permissions. Please do give me the correct permissions so that I may execute this command. Recommended ADMINISTRATOR.').then(message => message.delete(5000));
 
     if(!modlogs) {
         try{
