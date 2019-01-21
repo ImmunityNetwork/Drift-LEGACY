@@ -37,5 +37,7 @@ let embed3 = new RichEmbed()
     }
 }
 module.exports.help = {
-    name: "delrole"
+    name: "delrole",
+    description: "Deletes a role from the server using a command",
+    category: ""
 }

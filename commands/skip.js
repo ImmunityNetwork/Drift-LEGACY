@@ -14,5 +14,7 @@ var servers = {}; module.exports.run = (bot, message, args) => {
     if (server.dispatcher) server.dispatcher.end();
 }
 module.exports.help = {
-    name: "skip"
+    name: "skip",
+    description: "Skip the current song in queue",
+    category: ""
 }

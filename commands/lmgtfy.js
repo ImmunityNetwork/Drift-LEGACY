@@ -8,6 +8,7 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-name:"lmgtfy",
-description:"test"
+  name:"lmgtfy",
+  description:"Hey! Let me google that for you!",
+  category: ""
 }

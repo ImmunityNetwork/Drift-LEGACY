@@ -17,5 +17,6 @@ module.exports.run = async (bot, message, args) => {
 
 exports.help = {
   name:"help",
-  description:"Sends this help message."
+  description:"Sends this help message.",
+  category: ""
 };

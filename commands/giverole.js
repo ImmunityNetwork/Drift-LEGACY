@@ -47,5 +47,7 @@ module.exports.run = async (bot, message, args) => {
     }
 }
 module.exports.help = {
-    name: "giverole"
+    name: "giverole",
+    description: "Gives a specified role to the user",
+    category: ""
 }

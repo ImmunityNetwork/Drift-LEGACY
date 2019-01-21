@@ -7,6 +7,8 @@
     "array-sort": "^1.0.0",
     "axios": "^0.18.0",
     "bufferutil": "^4.0.0",
+    "color": "^3.1.0",
+    "colornames": "^1.1.1",
     "deep-extend": "^0.6.0",
     "discord.js": "^11.4.2",
     "enmap": "^4.0.0",

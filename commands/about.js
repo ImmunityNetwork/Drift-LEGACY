@@ -17,7 +17,8 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "about",
-    description:"Read some information about Drift!"
+    description:"Read some information about Drift!",
+    category: ""
 }
 
 //---

@@ -23,5 +23,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "music",
-    description:"Sends a help embed for music commands."
+    description:"Sends a help embed for music commands.",
+    category: ""
 }

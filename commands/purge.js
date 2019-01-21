@@ -51,5 +51,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
   name: "purge",
-  description: "Destroys the evidence. (Deletes mass amounts of messages)"
+  description: "Destroys the evidence. (Deletes mass amounts of messages)",
+  category: ""
 }

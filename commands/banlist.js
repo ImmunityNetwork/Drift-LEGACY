@@ -49,5 +49,7 @@ config = {
 };
 
 module.exports.help = {
-    name: "banlist"
+    name: "banlist",
+    description: "Returns a list of all bans",
+    category: ""
 }

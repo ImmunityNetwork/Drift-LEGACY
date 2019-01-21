@@ -19,5 +19,7 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "reminder"
+    name: "reminder",
+    description: "Set a reminder for yourself.",
+    category: ""
 }

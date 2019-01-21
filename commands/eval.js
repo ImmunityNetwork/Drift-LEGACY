@@ -29,5 +29,6 @@ module.exports.run = (bot, message, args) => {
 
 exports.help = {
   name: "eval",
-  description:"Evaluates Code."
+  description:"Evaluates Code.",
+  category: ""
 }

@@ -22,5 +22,7 @@ module.exports.run = async (bot, message, args) => {
   message.channel.send(embed).catch(e => require("../utils/error.js").error(bot, e));
 }
 module.exports.help = {
-  name: "info"
+  name: "info",
+  description: "shows statistics about drift",
+  category: ""
 }

@@ -53,5 +53,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "ban",
-    description:"Invoke the great power of the BAN HAMMER on someone."
+    description:"Invoke the great power of the BAN HAMMER on someone.",
+    category: ""
 }

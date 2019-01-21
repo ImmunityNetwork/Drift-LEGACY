@@ -32,5 +32,6 @@ module.exports.run = (bot, message, args) => {
 }
 module.exports.help = {
   name: "play",
-  description: "Play music"
+  description: "Play music",
+  category: ""
 }

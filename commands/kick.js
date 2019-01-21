@@ -58,5 +58,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "kick",
-    description:"Give someone the boot from the server."
+    description:"Give someone the boot from the server.",
+    category: ""
 }

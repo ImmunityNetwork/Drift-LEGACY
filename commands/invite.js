@@ -8,5 +8,7 @@ module.exports.run = (bot, message, args) => {
 }
 
 module.exports.help = {
-  name: "invite"
+  name: "invite",
+  description: "Get a link to invite drift!",
+  category: ""
 }

@@ -56,5 +56,6 @@ let colorn = args.slice(1, 2).join(" ");
     }
 }
 module.exports.help = {
-    name: "addrole"
+    name: "addrole",
+    description: "Create a role using a command!"
 }

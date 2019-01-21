@@ -53,5 +53,7 @@ module.exports.run = async(bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "softban"
+    name: "softban",
+    description: "Softban people yey <--- needs a better description",
+    category: ""  
 }

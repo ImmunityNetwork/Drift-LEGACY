@@ -22,5 +22,6 @@ exports.run = (bot, message, args) => {
 };
 module.exports.help = {
   name: "server",
-  description:"Read some information about your own server!"
+  description:"Read some information about your own server!",
+  category: ""
 };

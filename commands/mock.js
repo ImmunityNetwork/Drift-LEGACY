@@ -16,5 +16,6 @@ module.exports.run = async (bot, message, args) => {
 
 exports.help = {
   name: "mock",
-  description:"Mock some text just like ~~spongebob~~ spongemock."
+  description:"Mock some text just like ~~spongebob~~ spongemock.",
+  category: ""
 };

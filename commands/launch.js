@@ -34,5 +34,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.help = {
     name: "launch",
-    description:"Launch someone into space!"
+    description:"Launch someone into space!",
+    category: ""
 }
