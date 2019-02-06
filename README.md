@@ -1,3 +1,5 @@
+**This version is no longer actively maintained, check out the new repository for the latest from the drift team**
+
 # Drift: About and Contributing
 We would love it if you would help contribute! To contribute:
 
@@ -22,8 +24,3 @@ We don't currently need to use the youtube api key so you can ignore that. You c
 If you need help setting up join our support server and ask a developer. discord.gg/vW8GtY2
 
  ##### Also check out our trello for things you can help out with and features being worked on [Here](https://trello.com/b/s1b7yjdh/drift)!
- ## Upvote us!
- 
-<a href="https://discordbots.org/bot/403335081609134092" >
-  <img src="https://discordbots.org/api/widget/403335081609134092.svg" alt="Drift" />
-</a>
