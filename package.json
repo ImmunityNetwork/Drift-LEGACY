@@ -33,7 +33,7 @@
     "table": "^5.0.2",
     "urban-dictionary": "^2.2.1",
     "uws": "^100.0.0",
-    "ytdl-core": "^0.28.0"
+    "ytdl-core": "^0.29.0"
   },
   "devDependencies": {},
   "scripts": {
