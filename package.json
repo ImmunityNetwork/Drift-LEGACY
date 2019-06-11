@@ -18,7 +18,7 @@
     "idiotic-api": "^0.2.11",
     "lodash": "^4.17.5",
     "matchdep": "^2.0.0",
-    "mathjs": "^5.1.2",
+    "mathjs": "^6.0.0",
     "minimatch": "^3.0.2",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
