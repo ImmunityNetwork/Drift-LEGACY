@@ -11,7 +11,7 @@
     "colornames": "^1.1.1",
     "deep-extend": "^0.6.0",
     "discord.js": "^11.4.2",
-    "enmap": "^4.0.0",
+    "enmap": "^5.0.0",
     "erlpack": "github:hammerandchisel/erlpack",
     "fs": "0.0.2",
     "hoek": "^6.0.0",
